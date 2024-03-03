@@ -18,6 +18,13 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
+    public enum State {
+        ACTIVE,
+        BUSY,
+        AWAY,
+        OFFLINE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -34,7 +41,9 @@ public class User {
 
     private String imgProfile;
 
-    private String state;
+    // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
+    @Enumerated(EnumType.STRING)
+    private State State;
 
     private String biography;
 
@@ -60,7 +69,12 @@ public class User {
     )
     private Set<Task> viewedTasks = new HashSet<>();
 
-    // private Long idTheme;
-    // private Long idRole;
+    @ManyToOne
+    @JoinColumn(name = "theme_id", nullable = false)
+    private Theme theme;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
 }

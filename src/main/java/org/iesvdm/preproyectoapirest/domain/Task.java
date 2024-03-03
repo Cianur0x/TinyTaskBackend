@@ -39,7 +39,7 @@ public class Task {
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
