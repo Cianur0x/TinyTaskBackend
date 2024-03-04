@@ -49,13 +49,12 @@ public class User {
     private String biography;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-
     private Set<Task> tareasCreadas = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "friend_list",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -63,7 +62,7 @@ public class User {
     )
     private Set<User> friendList = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "task_viewer",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -71,11 +70,11 @@ public class User {
     )
     private Set<Task> viewedTasks = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "theme_id", nullable = false)
     private Theme theme;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 

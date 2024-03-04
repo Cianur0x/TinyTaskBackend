@@ -39,15 +39,15 @@ public class Task {
 
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", nullable = false)
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    @ManyToMany(mappedBy = "viewedTasks", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "viewedTasks", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> viewers = new HashSet<>();
 }
