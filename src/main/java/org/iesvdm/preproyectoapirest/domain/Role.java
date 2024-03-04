@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class Role {
     private String roleName;
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private Set<User> userSet = new HashSet<>();
 }

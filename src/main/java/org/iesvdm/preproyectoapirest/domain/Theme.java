@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Theme {
     private String secondaryColor;
 
     @OneToMany(mappedBy = "theme")
+    @JsonIgnore
     private Set<User> userSet = new HashSet<>();
 }

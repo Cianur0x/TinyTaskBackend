@@ -1,7 +1,9 @@
 package org.iesvdm.preproyectoapirest.service;
 
+import org.iesvdm.preproyectoapirest.domain.Task;
 import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,15 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService {
-    private final UserRepository userRepository;
+public class TaskService {
+    private final TaskRepository taskRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
-    public List<User> all() {
-        return this.userRepository.findAll();
+    public List<Task> all() {
+        return this.taskRepository.findAll();
     }
 
     public Map<String, Object> paginado(String[] paginado) {
@@ -30,7 +32,7 @@ public class UserService {
         int tamanio = Integer.parseInt(paginado[1]);
 
         Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<User> pageAll = this.userRepository.findAll(paginacion);
+        Page<Task> pageAll = this.taskRepository.findAll(paginacion);
 
         Map<String, Object> response = new HashMap<>();
 
@@ -42,25 +44,22 @@ public class UserService {
         return response;
     }
 
-    public User save(User user) {
-        return this.userRepository.save(user);
+    public Task save(Task task) {
+        return this.taskRepository.save(task);
     }
 
-    public User one(Long id) {
-        return this.userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id, User.class));
+    public Task one(Long id) {
+        return this.taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
     }
 
-    public User replace(Long id, User user) {
-        return this.userRepository.findById(id).map(p -> (id.equals(user.getId()) ?
-                        this.userRepository.save(user) : null))
-                .orElseThrow(() -> new EntityNotFoundException(id, User.class));
+    public Task replace(Long id, Task task) {
+        return this.taskRepository.findById(id).map(p -> (id.equals(task.getId()) ? this.taskRepository.save(task) : null)).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
     }
 
     public void delete(Long id) {
-        this.userRepository.findById(id).map(p -> {
-            this.userRepository.delete(p);
+        this.taskRepository.findById(id).map(p -> {
+            this.taskRepository.delete(p);
             return p;
-        }).orElseThrow(() -> new EntityNotFoundException(id, User.class));
+        }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
     }
 }
