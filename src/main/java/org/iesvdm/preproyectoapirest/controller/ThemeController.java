@@ -11,7 +11,7 @@ import java.util.List;
 @Slf4j
 @RestController
 // @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/themes")
+@RequestMapping("/v1/api/themes")
 public class ThemeController {
     private final ThemeService themeService;
 

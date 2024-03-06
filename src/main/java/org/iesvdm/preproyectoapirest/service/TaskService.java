@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
 import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
@@ -57,9 +59,10 @@ public class TaskService {
     }
 
     public void delete(Long id) {
-        this.taskRepository.findById(id).map(p -> {
+         this.taskRepository.findById(id).map(p -> {
             this.taskRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
+
     }
 }

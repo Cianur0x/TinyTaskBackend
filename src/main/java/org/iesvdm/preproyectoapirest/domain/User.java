@@ -3,10 +3,7 @@ package org.iesvdm.preproyectoapirest.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -18,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class User {
     public enum State {
         ACTIVE,
@@ -54,7 +52,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Tag> tags = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany()
     @JoinTable(
             name = "friend_list",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -62,7 +60,7 @@ public class User {
     )
     private Set<User> friendList = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(
             name = "task_viewer",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -70,11 +68,11 @@ public class User {
     )
     private Set<Task> viewedTasks = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "theme_id", nullable = false)
     private Theme theme;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 

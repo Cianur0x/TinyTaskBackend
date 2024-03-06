@@ -65,14 +65,17 @@ class PreproyectoApiRestApplicationTests {
         userRepository.save(user3);
 
         Tag tag1 = new Tag();
+        tag1.setUser(user1);
         tag1.setName("DWES");
         tagRepository.save(tag1);
 
         Tag tag2 = new Tag();
+        tag2.setUser(user2);
         tag2.setName("DWEC");
         tagRepository.save(tag2);
 
         Tag tag3 = new Tag();
+        tag3.setUser(user3);
         tag3.setName("EIEM");
         tagRepository.save(tag3);
 

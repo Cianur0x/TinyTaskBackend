@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @RestController
 // @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/tags")
+@RequestMapping("/v1/api/tags")
 public class TagController {
     private final TagService tagService;
 
