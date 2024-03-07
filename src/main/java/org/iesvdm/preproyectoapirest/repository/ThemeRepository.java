@@ -10,8 +10,4 @@ import java.util.List;
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
     List<Theme> findThemeByPrimaryColorContainingIgnoreCase(String color, Sort sort);
-
-    List<Theme> findThemeByPrimaryColorContainingIgnoreCase(String color);
-
-    List<Theme> findAllByPrimaryColor(Sort sort);
 }

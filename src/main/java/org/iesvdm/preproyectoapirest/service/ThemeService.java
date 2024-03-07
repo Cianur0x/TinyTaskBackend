@@ -1,10 +1,7 @@
 package org.iesvdm.preproyectoapirest.service;
 
-import org.iesvdm.preproyectoapirest.domain.Tag;
 import org.iesvdm.preproyectoapirest.domain.Theme;
-import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
-import org.iesvdm.preproyectoapirest.repository.TagRepository;
 import org.iesvdm.preproyectoapirest.repository.ThemeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,11 +34,9 @@ public class ThemeService {
         }
 
         if (findOpt.isPresent()) {
-            return sort != null ?
-                    this.themeRepository.findThemeByPrimaryColorContainingIgnoreCase(findOpt.get(), sort) :
-                    this.themeRepository.findThemeByPrimaryColorContainingIgnoreCase(findOpt.get());
+            return this.themeRepository.findThemeByPrimaryColorContainingIgnoreCase(findOpt.get(), sort);
         } else {
-            return sort != null ? this.themeRepository.findAllByPrimaryColor(sort) :
+            return sort != null ? this.themeRepository.findAll(sort) :
                     this.themeRepository.findAll();
         }
     }

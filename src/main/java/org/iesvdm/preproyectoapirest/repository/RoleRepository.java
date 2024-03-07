@@ -10,8 +10,4 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
     List<Role> findRoleByRoleNameContainingIgnoreCase(String name, Sort sort);
-
-    List<Role> findRoleByRoleNameContainingIgnoreCase(String name);
-
-    List<Role> findAllByRoleName(Sort sort);
 }

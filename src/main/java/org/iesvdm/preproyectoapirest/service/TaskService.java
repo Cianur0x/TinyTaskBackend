@@ -36,11 +36,9 @@ public class TaskService {
         }
 
         if (findOpt.isPresent()) {
-            return sort != null ?
-                    this.taskRepository.findTaskByTagName(findOpt.get(), sort) :
-                    this.taskRepository.findTaskByTagName(findOpt.get());
+            return this.taskRepository.findTaskByTagName(findOpt.get(), sort);
         } else {
-            return sort != null ? this.taskRepository.findAllByTagName(sort) :
+            return sort != null ? this.taskRepository.findAll(sort) :
                     this.taskRepository.findAll();
         }
     }

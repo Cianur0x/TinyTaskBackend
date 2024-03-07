@@ -10,8 +10,4 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTaskByTagName(String tagName, Sort sort);
-
-    List<Task> findTaskByTagName(String tagName);
-
-    List<Task> findAllByTagName(Sort sort);
 }

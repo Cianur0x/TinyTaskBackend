@@ -31,11 +31,9 @@ public class UserService {
         }
 
         if (findOpt.isPresent()) {
-            return sort != null ?
-                    this.userRepository.findUsersByUsernameContainingIgnoreCase(findOpt.get(), sort) :
-                    this.userRepository.findUsersByUsernameContainingIgnoreCase(findOpt.get());
+            return this.userRepository.findUsersByUsernameContainingIgnoreCase(findOpt.get(), sort);
         } else {
-            return sort != null ? this.userRepository.findAllByUsername(sort) :
+            return sort != null ? this.userRepository.findAll(sort) :
                     this.userRepository.findAll();
         }
     }

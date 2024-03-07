@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RoleService {
@@ -34,11 +31,9 @@ public class RoleService {
         }
 
         if (findOpt.isPresent()) {
-            return sort != null ?
-                    this.roleRepository.findRoleByRoleNameContainingIgnoreCase(findOpt.get(), sort) :
-                    this.roleRepository.findRoleByRoleNameContainingIgnoreCase(findOpt.get());
+            return this.roleRepository.findRoleByRoleNameContainingIgnoreCase(findOpt.get(), sort);
         } else {
-            return sort != null ? this.roleRepository.findAllByRoleName(sort) :
+            return sort != null ? this.roleRepository.findAll(sort) :
                     this.roleRepository.findAll();
         }
     }

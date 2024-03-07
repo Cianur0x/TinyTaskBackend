@@ -34,11 +34,9 @@ public class TagService {
         }
 
         if (findOpt.isPresent()) {
-            return sort != null ?
-                    this.tagRepository.findTagsByNameContainingIgnoreCase(findOpt.get(), sort) :
-                    this.tagRepository.findTagsByNameContainingIgnoreCase(findOpt.get());
+            return this.tagRepository.findTagsByNameContainingIgnoreCase(findOpt.get(), sort);
         } else {
-            return sort != null ? this.tagRepository.findAllByName(sort) :
+            return sort != null ? this.tagRepository.findAll(sort) :
                     this.tagRepository.findAll();
         }
     }

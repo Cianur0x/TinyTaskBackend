@@ -2,13 +2,14 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Role;
-import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.service.RoleService;
-import org.iesvdm.preproyectoapirest.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -21,10 +22,25 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
     public List<Role> all() {
-        log.info("Accediendo a todos los roles");
+        log.info("Accediendo a todos los usuarios");
         return this.roleService.all();
+    }
+
+    @GetMapping(value = {"", "/"}, params = {"!page", "!size"})
+    public List<Role> all(@RequestParam("search") Optional<String> findOpt,
+                          @RequestParam("order") Optional<String> orderOpt) {
+        log.info("Accediendo a todas las usuarios con filtros");
+        return this.roleService.all(findOpt, orderOpt);
+    }
+
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                   @RequestParam(value = "size", defaultValue = "3") int size) {
+        log.info("Accediendo a usuarios con paginación");
+        Map<String, Object> responseAll = this.roleService.all(page, size);
+        return ResponseEntity.ok(responseAll);
     }
 
     @PostMapping({"", "/"})
