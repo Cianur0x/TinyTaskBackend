@@ -9,15 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -27,16 +23,30 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public Map<String, Object> paginado(String[] paginado) {
-        int pagina = Integer.parseInt(paginado[0]);
-        int tamanio = Integer.parseInt(paginado[1]);
+    public List<User> all(Optional<String> findOpt, Optional<String> orderOpt) {
+        Sort sort = null;
 
-        Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<User> pageAll = this.userRepository.findAll(paginacion);
+        if (orderOpt.isPresent()) {
+            sort = orderOpt.get().equals("desc") ? Sort.by("username").descending() : Sort.by("username").ascending();
+        }
+
+        if (findOpt.isPresent()) {
+            return sort != null ?
+                    this.userRepository.findUsersByUsernameContainingIgnoreCase(findOpt.get(), sort) :
+                    this.userRepository.findUsersByUsernameContainingIgnoreCase(findOpt.get());
+        } else {
+            return sort != null ? this.userRepository.findAllByUsername(sort) :
+                    this.userRepository.findAll();
+        }
+    }
+
+    public Map<String, Object> all(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
+        Page<User> pageAll = this.userRepository.findAll(pageable);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("user", pageAll.getContent());
+        response.put("users", pageAll.getContent());
         response.put("currentPage", pageAll.getNumber());
         response.put("totalItems", pageAll.getTotalElements());
         response.put("totalPages", pageAll.getTotalPages());

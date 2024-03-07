@@ -2,6 +2,7 @@ package org.iesvdm.preproyectoapirest.service;
 
 import org.iesvdm.preproyectoapirest.domain.Tag;
 import org.iesvdm.preproyectoapirest.domain.Theme;
+import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.TagRepository;
 import org.iesvdm.preproyectoapirest.repository.ThemeRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ThemeService {
@@ -27,16 +29,30 @@ public class ThemeService {
         return this.themeRepository.findAll();
     }
 
-    public Map<String, Object> paginado(String[] paginado) {
-        int pagina = Integer.parseInt(paginado[0]);
-        int tamanio = Integer.parseInt(paginado[1]);
+    public List<Theme> all(Optional<String> findOpt, Optional<String> orderOpt) {
+        Sort sort = null;
 
-        Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Theme> pageAll = this.themeRepository.findAll(paginacion);
+        if (orderOpt.isPresent()) {
+            sort = orderOpt.get().equals("desc") ? Sort.by("primaryColor").descending() : Sort.by("primaryColor").ascending();
+        }
+
+        if (findOpt.isPresent()) {
+            return sort != null ?
+                    this.themeRepository.findThemeByPrimaryColorContainingIgnoreCase(findOpt.get(), sort) :
+                    this.themeRepository.findThemeByPrimaryColorContainingIgnoreCase(findOpt.get());
+        } else {
+            return sort != null ? this.themeRepository.findAllByPrimaryColor(sort) :
+                    this.themeRepository.findAll();
+        }
+    }
+
+    public Map<String, Object> all(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("primaryColor").ascending());
+        Page<Theme> pageAll = this.themeRepository.findAll(pageable);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("user", pageAll.getContent());
+        response.put("themes", pageAll.getContent());
         response.put("currentPage", pageAll.getNumber());
         response.put("totalItems", pageAll.getTotalElements());
         response.put("totalPages", pageAll.getTotalPages());

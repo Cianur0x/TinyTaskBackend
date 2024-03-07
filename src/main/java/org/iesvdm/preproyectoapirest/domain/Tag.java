@@ -28,7 +28,7 @@ public class Tag {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "tag", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tag", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Task> tasks;
 }

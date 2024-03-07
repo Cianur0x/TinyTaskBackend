@@ -22,7 +22,7 @@ public class Role {
 
     private String roleName;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();
 }
