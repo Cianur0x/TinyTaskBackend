@@ -2,10 +2,8 @@ package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
-import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.TaskRepository;
-import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -29,16 +28,30 @@ public class TaskService {
         return this.taskRepository.findAll();
     }
 
-    public Map<String, Object> paginado(String[] paginado) {
-        int pagina = Integer.parseInt(paginado[0]);
-        int tamanio = Integer.parseInt(paginado[1]);
+    public List<Task> all(Optional<String> findOpt, Optional<String> orderOpt) {
+        Sort sort = null;
 
-        Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Task> pageAll = this.taskRepository.findAll(paginacion);
+        if (orderOpt.isPresent()) {
+            sort = orderOpt.get().equals("desc") ? Sort.by("tag_name").descending() : Sort.by("tag_name").ascending();
+        }
+
+        if (findOpt.isPresent()) {
+            return sort != null ?
+                    this.taskRepository.findTaskByTagName(findOpt.get(), sort) :
+                    this.taskRepository.findTaskByTagName(findOpt.get());
+        } else {
+            return sort != null ? this.taskRepository.findAllByTagName(sort) :
+                    this.taskRepository.findAll();
+        }
+    }
+
+    public Map<String, Object> all(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("tag_name").ascending());
+        Page<Task> pageAll = this.taskRepository.findAll(pageable);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("user", pageAll.getContent());
+        response.put("tasks", pageAll.getContent());
         response.put("currentPage", pageAll.getNumber());
         response.put("totalItems", pageAll.getTotalElements());
         response.put("totalPages", pageAll.getTotalPages());
@@ -59,7 +72,7 @@ public class TaskService {
     }
 
     public void delete(Long id) {
-         this.taskRepository.findById(id).map(p -> {
+        this.taskRepository.findById(id).map(p -> {
             this.taskRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));

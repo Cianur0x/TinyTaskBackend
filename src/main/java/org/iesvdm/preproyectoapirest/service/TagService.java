@@ -1,10 +1,8 @@
 package org.iesvdm.preproyectoapirest.service;
 
 import org.iesvdm.preproyectoapirest.domain.Tag;
-import org.iesvdm.preproyectoapirest.domain.Task;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.TagRepository;
-import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class TagService {
@@ -27,16 +26,30 @@ public class TagService {
         return this.tagRepository.findAll();
     }
 
-    public Map<String, Object> paginado(String[] paginado) {
-        int pagina = Integer.parseInt(paginado[0]);
-        int tamanio = Integer.parseInt(paginado[1]);
+    public List<Tag> all(Optional<String> findOpt, Optional<String> orderOpt) {
+        Sort sort = null;
 
-        Pageable paginacion = PageRequest.of(pagina, tamanio, Sort.by("id").ascending());
-        Page<Tag> pageAll = this.tagRepository.findAll(paginacion);
+        if (orderOpt.isPresent()) {
+            sort = orderOpt.get().equals("desc") ? Sort.by("name").descending() : Sort.by("name").ascending();
+        }
+
+        if (findOpt.isPresent()) {
+            return sort != null ?
+                    this.tagRepository.findTagsByNameContainingIgnoreCase(findOpt.get(), sort) :
+                    this.tagRepository.findTagsByNameContainingIgnoreCase(findOpt.get());
+        } else {
+            return sort != null ? this.tagRepository.findAllByName(sort) :
+                    this.tagRepository.findAll();
+        }
+    }
+
+    public Map<String, Object> all(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        Page<Tag> pageAll = this.tagRepository.findAll(pageable);
 
         Map<String, Object> response = new HashMap<>();
 
-        response.put("user", pageAll.getContent());
+        response.put("tags", pageAll.getContent());
         response.put("currentPage", pageAll.getNumber());
         response.put("totalItems", pageAll.getTotalElements());
         response.put("totalPages", pageAll.getTotalPages());
