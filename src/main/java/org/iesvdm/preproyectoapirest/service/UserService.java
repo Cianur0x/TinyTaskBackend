@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Slf4j
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -62,6 +64,8 @@ public class UserService {
     }
 
     public User replace(Long id, User user) {
+
+        // TODO
         return this.userRepository.findById(id).map(p -> (id.equals(user.getId()) ?
                         this.userRepository.save(user) : null))
                 .orElseThrow(() -> new EntityNotFoundException(id, User.class));

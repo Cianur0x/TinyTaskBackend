@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 public class User {
     public enum State {
         ACTIVE,
@@ -27,14 +27,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @ToString.Include
     private Long id;
 
+    @ToString.Include
     private String username;
 
+    @ToString.Include
     private String email;
 
     private String password;
 
+    @ToString.Include
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date lastConnection;
 
@@ -42,14 +46,16 @@ public class User {
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
     @Enumerated(EnumType.STRING)
+    @ToString.Include
     private State State;
 
+    @ToString.Include
     private String biography;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Task> tareasCreadas = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Tag> tags = new HashSet<>();
 
     @ManyToMany()
