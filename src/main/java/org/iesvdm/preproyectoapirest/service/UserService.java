@@ -64,8 +64,6 @@ public class UserService {
     }
 
     public User replace(Long id, User user) {
-
-        // TODO
         return this.userRepository.findById(id).map(p -> (id.equals(user.getId()) ?
                         this.userRepository.save(user) : null))
                 .orElseThrow(() -> new EntityNotFoundException(id, User.class));

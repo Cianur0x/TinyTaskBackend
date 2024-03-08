@@ -36,8 +36,11 @@ public class TaskService {
         }
 
         if (findOpt.isPresent()) {
-            return this.taskRepository.findTaskByTagName(findOpt.get(), sort);
+            log.info("OPCION 1");
+            //return this.taskRepository.findTaskByTagName(findOpt.get(), sort);
+            return this.taskRepository.findTaskByTag_NameContainingIgnoreCase(findOpt.get(), sort);
         } else {
+            log.info("OPCION 2");
             return sort != null ? this.taskRepository.findAll(sort) :
                     this.taskRepository.findAll();
         }
