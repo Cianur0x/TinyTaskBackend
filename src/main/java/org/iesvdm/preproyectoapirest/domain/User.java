@@ -1,7 +1,9 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -53,9 +55,11 @@ public class User {
     private String biography;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Task> tareasCreadas = new HashSet<>();
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Tag> tags = new HashSet<>();
 
     @ManyToMany()

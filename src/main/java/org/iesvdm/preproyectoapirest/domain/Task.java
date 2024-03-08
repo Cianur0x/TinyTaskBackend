@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -22,6 +23,8 @@ public class Task {
     @EqualsAndHashCode.Include
     private Long id;
 
+    private String title;
+
     private Boolean taskDone;
 
     private String taskDuration;
@@ -39,7 +42,7 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)

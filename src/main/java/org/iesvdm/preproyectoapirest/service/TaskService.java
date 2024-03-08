@@ -32,7 +32,7 @@ public class TaskService {
         Sort sort = null;
 
         if (orderOpt.isPresent()) {
-            sort = orderOpt.get().equals("desc") ? Sort.by("tag_name").descending() : Sort.by("tag_name").ascending();
+            sort = orderOpt.get().equals("desc") ? Sort.by("title").descending() : Sort.by("title").ascending();
         }
 
         if (findOpt.isPresent()) {

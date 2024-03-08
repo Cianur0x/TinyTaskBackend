@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,10 +26,10 @@ public class Tag {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "tag", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tag", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Task> tasks;
 }

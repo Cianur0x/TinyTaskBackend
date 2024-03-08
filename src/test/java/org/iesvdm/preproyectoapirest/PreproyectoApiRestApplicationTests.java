@@ -81,6 +81,7 @@ class PreproyectoApiRestApplicationTests {
 
         // TODO Calendar implementation, Date is deprecated
         Task task1 = new Task();
+        task1.setTitle("Do postman Test");
         task1.setUser(user1);
         task1.setTaskDone(false);
         task1.setTag(tag1);
@@ -88,6 +89,7 @@ class PreproyectoApiRestApplicationTests {
         taskRepository.save(task1);
 
         Task task2 = new Task();
+        task2.setTitle("Do CRUD with Angular");
         task2.setUser(user2);
         task2.setTaskDone(false);
         task2.setTag(tag2);
@@ -95,6 +97,7 @@ class PreproyectoApiRestApplicationTests {
         taskRepository.save(task2);
 
         Task task3 = new Task();
+        task3.setTitle("Do presentation pt.3 y pt.4");
         task3.setUser(user3);
         task3.setTaskDone(false);
         task3.setTag(tag3);
@@ -102,6 +105,7 @@ class PreproyectoApiRestApplicationTests {
         taskRepository.save(task3);
 
         Task task4 = new Task();
+        task4.setTitle("Take notes from presentation p3");
         task4.setUser(user1);
         task4.setTaskDone(true);
         task4.setTag(tag2);
@@ -109,6 +113,7 @@ class PreproyectoApiRestApplicationTests {
         taskRepository.save(task4);
 
         Task task5 = new Task();
+        task5.setTitle("Do presentation project");
         task5.setUser(user2);
         task5.setTaskDone(true);
         task5.setTag(tag1);
@@ -116,6 +121,7 @@ class PreproyectoApiRestApplicationTests {
         taskRepository.save(task5);
 
         Task task6 = new Task();
+        task5.setTitle("Prepare presentation");
         task6.setUser(user3);
         task6.setTaskDone(true);
         task6.setTag(tag3);
