@@ -1,8 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -79,11 +77,11 @@ public class User {
     private Set<Task> viewedTasks = new HashSet<>();
 
     @ManyToOne()
-    @JoinColumn(name = "theme_id", nullable = false)
+    @JoinColumn(name = "theme_id")
     private Theme theme;
 
     @ManyToOne()
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     private Role role;
 
 }

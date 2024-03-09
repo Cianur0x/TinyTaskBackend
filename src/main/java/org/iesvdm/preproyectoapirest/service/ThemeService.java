@@ -3,6 +3,7 @@ package org.iesvdm.preproyectoapirest.service;
 import org.iesvdm.preproyectoapirest.domain.Theme;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.ThemeRepository;
+import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,11 @@ import java.util.Optional;
 @Service
 public class ThemeService {
     private final ThemeRepository themeRepository;
+    private final UserRepository userRepository;
 
-    public ThemeService(ThemeRepository themeRepository) {
+    public ThemeService(ThemeRepository themeRepository, UserRepository userRepository) {
         this.themeRepository = themeRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Theme> all() {
@@ -70,6 +73,10 @@ public class ThemeService {
 
     public void delete(Long id) {
         this.themeRepository.findById(id).map(p -> {
+            p.getUserSet().forEach(user -> {
+                user.setTheme(null);
+                this.userRepository.save(user);
+            });
             this.themeRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Theme.class));

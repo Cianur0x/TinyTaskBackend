@@ -37,7 +37,6 @@ public class TaskService {
 
         if (findOpt.isPresent()) {
             log.info("OPCION 1");
-            //return this.taskRepository.findTaskByTagName(findOpt.get(), sort);
             return this.taskRepository.findTaskByTag_NameContainingIgnoreCase(findOpt.get(), sort);
         } else {
             log.info("OPCION 2");
@@ -69,7 +68,9 @@ public class TaskService {
     }
 
     public Task replace(Long id, Task task) {
-        return this.taskRepository.findById(id).map(p -> (id.equals(task.getId()) ? this.taskRepository.save(task) : null)).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
+        return this.taskRepository.findById(id)
+                .map(p -> (id.equals(task.getId()) ? this.taskRepository.save(task) : null))
+                .orElseThrow(() -> new EntityNotFoundException(id, Task.class));
     }
 
     public void delete(Long id) {

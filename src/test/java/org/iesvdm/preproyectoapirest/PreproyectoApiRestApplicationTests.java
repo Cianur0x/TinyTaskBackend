@@ -127,7 +127,6 @@ class PreproyectoApiRestApplicationTests {
         task6.setTag(tag3);
         task6.setDeadLine(new Date(2024 - 1900, 2, 29, 23, 59, 59));
         taskRepository.save(task6);
-
     }
 
 }

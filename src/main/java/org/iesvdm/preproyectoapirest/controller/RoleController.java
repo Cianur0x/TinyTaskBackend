@@ -24,21 +24,21 @@ public class RoleController {
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
     public List<Role> all() {
-        log.info("Accediendo a todos los usuarios");
+        log.info("Accediendo a todos los roles");
         return this.roleService.all();
     }
 
     @GetMapping(value = {"", "/"}, params = {"!page", "!size"})
     public List<Role> all(@RequestParam("search") Optional<String> findOpt,
                           @RequestParam("order") Optional<String> orderOpt) {
-        log.info("Accediendo a todas las usuarios con filtros");
+        log.info("Accediendo a todos los roles con filtros");
         return this.roleService.all(findOpt, orderOpt);
     }
 
     @GetMapping(value = {"", "/"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                   @RequestParam(value = "size", defaultValue = "3") int size) {
-        log.info("Accediendo a usuarios con paginación");
+                                                   @RequestParam(value = "size", defaultValue = "2") int size) {
+        log.info("Accediendo a roles con paginación");
         Map<String, Object> responseAll = this.roleService.all(page, size);
         return ResponseEntity.ok(responseAll);
     }
@@ -55,7 +55,7 @@ public class RoleController {
 
     @PutMapping("/{id}")
     public Role replaceRole(@PathVariable("id") Long id, @RequestBody Role role) {
-         return this.roleService.replace(id, role);
+        return this.roleService.replace(id, role);
 
     }
 
