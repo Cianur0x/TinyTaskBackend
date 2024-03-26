@@ -7,6 +7,7 @@ import org.iesvdm.preproyectoapirest.repository.RoleRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.iesvdm.preproyectoapirest.security.TokenUtils;
 import org.iesvdm.preproyectoapirest.service.UserDetailsImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,24 +25,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/v1/api/auth")
 @NoArgsConstructor
 public class AuthController {
+    @Autowired
     AuthenticationManager authenticationManager;
 
+    @Autowired
     UserRepository userRepository;
 
+    @Autowired
     RoleRepository rolRepository;
 
+    @Autowired
     PasswordEncoder encoder;
 
-
+    @Autowired
     TokenUtils tokenUtils;
-
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository rolRepository, PasswordEncoder encoder, TokenUtils tokenUtils) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.rolRepository = rolRepository;
-        this.encoder = encoder;
-        this.tokenUtils = tokenUtils;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> authenticateUser(@Valid @RequestBody UserLoginDTO loginRequest) {
