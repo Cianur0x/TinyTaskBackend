@@ -29,11 +29,11 @@ class PreproyectoApiRestApplicationTests {
     @Test
     void crearData() {
         Role role1 = new Role();
-        role1.setRoleName("Beginner");
+       //  role1.setRoleName("Beginner");
         roleRepository.save(role1);
 
         Role role2 = new Role();
-        role2.setRoleName("Advanced");
+        // role2.setRoleName("Advanced");
         roleRepository.save(role2);
 
         Theme theme1 = new Theme();
@@ -48,19 +48,19 @@ class PreproyectoApiRestApplicationTests {
 
         User user1 = new User();
         user1.setUsername("Cianuro");
-        user1.setRole(role2);
+       //  user1.setRole(role2);
         user1.setTheme(theme1);
         userRepository.save(user1);
 
         User user2 = new User();
         user2.setUsername("Jake");
-        user2.setRole(role1);
+        // user2.setRole(role1);
         user2.setTheme(theme2);
         userRepository.save(user2);
 
         User user3 = new User();
         user3.setUsername("Finn");
-        user3.setRole(role1);
+        // user3.setRole(role1);
         user3.setTheme(theme2);
         userRepository.save(user3);
 

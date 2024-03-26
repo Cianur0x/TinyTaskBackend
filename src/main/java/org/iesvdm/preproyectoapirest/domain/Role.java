@@ -15,14 +15,18 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Role {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long Id;
 
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private ARole roleNameAdmin;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private URole roleName;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();
 }

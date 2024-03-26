@@ -3,6 +3,9 @@ package org.iesvdm.preproyectoapirest.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
@@ -10,19 +13,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class User {
-    public enum State {
-        ACTIVE,
-        BUSY,
-        AWAY,
-        OFFLINE
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +31,17 @@ public class User {
     @ToString.Include
     private Long id;
 
-    @ToString.Include
+    @NotBlank
     private String username;
 
+    @NotBlank
+    @Email
     @ToString.Include
     private String email;
 
+    @NotBlank
+    @Size(max = 120)
+    @Size(min = 6)
     private String password;
 
     @ToString.Include
@@ -80,8 +86,15 @@ public class User {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    @ManyToOne()
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

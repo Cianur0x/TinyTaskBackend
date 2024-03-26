@@ -74,7 +74,7 @@ public class RoleService {
     public void delete(Long id) {
         this.roleRepository.findById(id).map(p -> {
             p.getUserSet().forEach(user -> {
-                user.setRole(null);
+                user.setRoles(null);
                 this.userRepository.save(user);
             });
             this.roleRepository.delete(p);
