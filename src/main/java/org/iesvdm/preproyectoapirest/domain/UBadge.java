@@ -1,6 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
-public enum URole {
+public enum UBadge {
     SILVER,
     GOLD,
     PLATINUM,

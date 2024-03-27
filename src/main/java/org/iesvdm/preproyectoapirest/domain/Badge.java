@@ -8,22 +8,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "role")
+@Table(name = "badge")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Role {
+public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long Id;
 
     @Enumerated(EnumType.STRING)
-    private ARole roleName;
+    private UBadge badgeName;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private Long streakConnection;
+
+    private Long numTasksDone;
+
+    @OneToMany(mappedBy = "badge")
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();
 }

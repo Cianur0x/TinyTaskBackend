@@ -86,6 +86,10 @@ public class User {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
+    @ManyToOne()
+    @JoinColumn(name = "badge_id")
+    private Badge badge;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
