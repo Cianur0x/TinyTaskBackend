@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping(value = {"", "/"}, params = {"!page", "!size"})
     public List<User> all(@RequestParam("search") Optional<String> findOpt,
                           @RequestParam("order") Optional<String> orderOpt) {
-        log.info("Accediendo a todas las usuarios con filtros");
+        log.info("Accediendo a todOs las usuarios con filtros");
         return this.userService.all(findOpt, orderOpt);
     }
 

@@ -4,6 +4,7 @@ public enum UBadge {
     SILVER,
     GOLD,
     PLATINUM,
+    DIAMOND,
     MASTER,
     CHALLENGER
 

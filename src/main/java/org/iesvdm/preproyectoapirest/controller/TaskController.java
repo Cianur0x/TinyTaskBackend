@@ -2,9 +2,7 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
-import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.service.TaskService;
-import org.iesvdm.preproyectoapirest.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-// @CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/v1/api/tasks")
 public class TaskController {
     private final TaskService taskService;
