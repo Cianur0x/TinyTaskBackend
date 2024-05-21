@@ -25,7 +25,7 @@ public class Tag {
     private String labelColor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id") // para poder poner valores nulos
     @JsonBackReference
     private User user;
 

@@ -44,8 +44,8 @@ public class TaskController {
     }
 
     @PostMapping({"", "/"})
-    public Task newTask(@RequestBody Task user) {
-        return this.taskService.save(user);
+    public Task newTask(@RequestBody Task task) {
+        return this.taskService.save(task);
     }
 
     @GetMapping("/{id}")

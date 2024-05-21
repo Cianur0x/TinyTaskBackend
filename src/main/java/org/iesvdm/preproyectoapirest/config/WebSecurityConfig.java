@@ -69,6 +69,7 @@ public class WebSecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
                 .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/v1/api/**").permitAll()
                         .requestMatchers("/v1/api/auth/**").permitAll()
                         .requestMatchers("/v1/api/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()

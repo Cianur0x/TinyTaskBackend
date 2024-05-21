@@ -95,7 +95,6 @@ public class AuthController {
                         Role adminRole = rolRepository.findByRoleName(ARole.ROL_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
                         roles.add(adminRole);
-
                         break;
 
                     default:

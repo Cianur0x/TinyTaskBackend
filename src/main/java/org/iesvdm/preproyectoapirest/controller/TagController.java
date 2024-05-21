@@ -22,19 +22,24 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!allTags"})
     public List<Tag> all() {
         log.info("Accediendo a todos las etiquetas");
         return this.tagService.all();
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!page", "!size"})
+    @GetMapping(value = {"", "/"}, params = {"!page", "!size", "!allTags"})
     public List<Tag> all(@RequestParam("search") Optional<String> findOpt,
                          @RequestParam("order") Optional<String> orderOpt) {
         log.info("Accediendo a todas las etiquetas con filtros");
         return this.tagService.all(findOpt, orderOpt);
     }
 
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
+    public List<Tag> getDefaultAllTagsByUser(@RequestParam("allTags") Optional<Long> findOpt) {
+        return this.tagService.findTagsByUserID(findOpt);
+    }
+    
     @GetMapping(value = {"", "/"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page,
                                                    @RequestParam(value = "size", defaultValue = "3") int size) {
@@ -56,7 +61,6 @@ public class TagController {
     @PutMapping("/{id}")
     public Tag replaceTag(@PathVariable("id") Long id, @RequestBody Tag tag) {
         return this.tagService.replace(id, tag);
-
     }
 
     @ResponseBody

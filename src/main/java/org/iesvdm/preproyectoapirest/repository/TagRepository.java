@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
     List<Tag> findTagsByNameContainingIgnoreCase(String name, Sort sort);
+    List<Tag> findTagsByUser_id(Long id);
 }

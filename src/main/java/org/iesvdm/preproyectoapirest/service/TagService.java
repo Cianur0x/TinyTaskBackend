@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TagService {
@@ -42,6 +39,17 @@ public class TagService {
             return sort != null ? this.tagRepository.findAll(sort) :
                     this.tagRepository.findAll();
         }
+    }
+
+    public List<Tag> findTagsByUserID(Optional<Long> id) {
+        List<Tag> tags = new ArrayList<>();
+        if (id.isPresent()) {
+            tags = this.tagRepository.findTagsByUser_id(id.get());
+            List<Tag> defaulTags = this.tagRepository.findTagsByUser_id(null);
+            tags.addAll(defaulTags);
+        }
+
+        return tags;
     }
 
     public Map<String, Object> all(int page, int size) {
