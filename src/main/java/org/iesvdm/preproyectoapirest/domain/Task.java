@@ -29,13 +29,16 @@ public class Task {
 
     private String taskDuration;
 
-    @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date deadLine;
 
-    @JsonFormat(pattern = "HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @Temporal(TemporalType.TIME)
+    @JsonFormat(pattern = "HH:mm", shape = JsonFormat.Shape.STRING)
     private Date startTime;
 
-    @JsonFormat(pattern = "HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @Temporal(TemporalType.TIME)
+    @JsonFormat(pattern = "HH:mm", shape = JsonFormat.Shape.STRING)
     private Date endingTime;
 
     private String description;

@@ -10,10 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -43,6 +42,51 @@ public class TaskService {
             return sort != null ? this.taskRepository.findAll(sort) :
                     this.taskRepository.findAll();
         }
+    }
+
+    // FIXME no se deberia usar esto ya que se hace una llamada por día osea , 31 llamadas xdxd
+    public List<Task> getTaskByDeadline(String deadline, Long userId) {
+        List<Task> all;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+
+        try {
+            date = formatter.parse(deadline);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        all = this.taskRepository.findTaskByDeadLineAndUser_IdOrderByTitleAsc(date, userId);
+
+        return all;
+    }
+
+    public List<Task> getTaskByIsChecked(Boolean isChecked, Long tagId, Long userId) {
+        return this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(isChecked, tagId, userId);
+    }
+
+    public List<Task> getAllTaskByTagId(Long tagId, Long userId) {
+        List<Task> all = new ArrayList<>();
+
+        all.addAll(this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(false, tagId, userId));
+        all.addAll(this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(true, tagId, userId));
+
+        return all;
+    }
+
+    public List<Task> getTaskByMonth(String startDate, String endDate, Long userId) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date start;
+        Date end;
+        try {
+            start = formatter.parse(startDate);
+            end = formatter.parse(endDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return this.taskRepository.getTasksByUserIDAndDeadlineBetween(start, end, userId);
     }
 
     public Map<String, Object> all(int page, int size) {
