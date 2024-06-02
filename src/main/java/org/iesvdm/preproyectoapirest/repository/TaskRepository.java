@@ -18,6 +18,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(Boolean taskDone, Long tagId, Long userId);
 
+    List<Task> findTaskByTaskDoneAndUser_Id(Boolean taskDone, Long user_id, Sort sort);
+
     @Query(value = "select T from Task  T Where T.deadLine between :startDate AND :endDate AND T.user.id = :userId")
     List<Task> getTasksByUserIDAndDeadlineBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userId") Long userId);
 }

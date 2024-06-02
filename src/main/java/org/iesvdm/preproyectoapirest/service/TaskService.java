@@ -66,6 +66,11 @@ public class TaskService {
         return this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(isChecked, tagId, userId);
     }
 
+    public List<Task> getTaskByIsChecked(Boolean isChecked, Long userId) {
+        Sort sort = Sort.by("deadLine").ascending() ;
+        return this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort);
+    }
+
     public List<Task> getAllTaskByTagId(Long tagId, Long userId) {
         List<Task> all = new ArrayList<>();
 

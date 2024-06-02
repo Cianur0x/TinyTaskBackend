@@ -43,9 +43,16 @@ public class TaskController {
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!start", "!end"})
     public List<Task> allByIsChecked(@RequestParam("isChecked") Boolean isChecked, @RequestParam("tagId") Long tagId, @RequestParam("id") Long userId) {
-        log.info("Accediendo a todas las tareas según isChecked & tagId");
+        log.info("Accediendo a todas las tareas según isChecked & tagId & userId");
         return this.taskService.getTaskByIsChecked(isChecked, tagId, userId);
     }
+
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!tagId", "!start", "!end"})
+    public List<Task> allByIsChecked(@RequestParam("isChecked") Boolean isChecked, @RequestParam("id") Long userId) {
+        log.info("Accediendo a todas las tareas según isChecked & userId");
+        return this.taskService.getTaskByIsChecked(isChecked, userId);
+    }
+
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!isChecked", "!start", "!end"})
     public List<Task> allByTagId(@RequestParam("tagId") Long tagId, @RequestParam("id") Long userId) {
@@ -80,7 +87,6 @@ public class TaskController {
     @PutMapping("/{id}")
     public Task replaceTask(@PathVariable("id") Long id, @RequestBody Task task) {
         return this.taskService.replace(id, task);
-
     }
 
     @ResponseBody

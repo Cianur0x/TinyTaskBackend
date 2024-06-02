@@ -40,6 +40,27 @@ public class UserService {
         }
     }
 
+    public User findByUsername(Optional<String> findOpt) {
+        List<User> justOne =  this.all(findOpt, Optional.empty());
+        if (!justOne.isEmpty()) {
+            return  justOne.getFirst();
+        }
+        return  null;
+    }
+
+    public Set<User> addUserToFriendList(Optional<String> findOpt, Long idUser){
+        User userToFriend = this.findByUsername(findOpt);
+        User currentUser = this.one(idUser);
+        if (userToFriend != null) {
+            currentUser.getFriendList().add(userToFriend);
+            // userToFriend.getFriendList().add(currentUser);
+            this.userRepository.save(currentUser);
+            this.userRepository.save(userToFriend);
+            return currentUser.getFriendList();
+        }
+        return null;
+    }
+
     public Map<String, Object> all(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
         Page<User> pageAll = this.userRepository.findAll(pageable);
