@@ -2,8 +2,12 @@ package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
+import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.mapper.UserMapper;
 import org.iesvdm.preproyectoapirest.repository.TaskRepository;
+import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +22,13 @@ import java.util.*;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository, UserMapper userMapper) {
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public List<Task> all() {
@@ -67,7 +75,7 @@ public class TaskService {
     }
 
     public List<Task> getTaskByIsChecked(Boolean isChecked, Long userId) {
-        Sort sort = Sort.by("deadLine").ascending() ;
+        Sort sort = Sort.by("deadLine").ascending();
         return this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort);
     }
 
@@ -110,6 +118,28 @@ public class TaskService {
 
     public Task save(Task task) {
         return this.taskRepository.save(task);
+    }
+
+    public List<UserDTO> addViewerstoTask(List<UserDTO> viewersAdded, Long taskID) {
+        Task currentTask = one(taskID);
+        viewersAdded.forEach(userDTO -> {
+            User user = this.userRepository.findById(userDTO.getId())
+                    .orElseThrow(() -> new EntityNotFoundException(userDTO.getId(), User.class));
+            user.getViewedTasks().add(currentTask);
+            this.userRepository.save(user);
+            currentTask.getViewers().add(user);
+            this.taskRepository.save(currentTask);
+        });
+
+        List<UserDTO> viewers = new ArrayList<>();
+
+        currentTask.getViewers().forEach(user -> {
+                    UserDTO userDTO = this.userMapper.userToUserDTO(user);
+                    viewers.add(userDTO);
+                }
+        );
+
+        return viewers;
     }
 
     public Task one(Long id) {

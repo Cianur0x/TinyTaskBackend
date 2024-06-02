@@ -1,6 +1,7 @@
 package org.iesvdm.preproyectoapirest.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -80,6 +81,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "task_id")
     )
+    @JsonIgnoreProperties("viewers")
     private Set<Task> viewedTasks = new HashSet<>();
 
     @ManyToOne()

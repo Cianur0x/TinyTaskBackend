@@ -11,8 +11,7 @@ public interface UserMapper {
     @Mapping(source = "username", target = "username")
     @Mapping(source = "imgProfile", target = "imgProfile")
     @Mapping(source = "state", target = "state")
+    UserDTO userToUserDTO(User user);
 
-    public UserDTO userToUserDTO(User user);
-
-    public User clienteDTOACliente(UserDTO clienteDTO);
+    User userDTOAUser(UserDTO clienteDTO);
 }

@@ -44,7 +44,6 @@ public class UserController {
         return this.userService.getFriendList(id);
     }
 
-
     @GetMapping(value = {"", "/"}, params = {"!page", "!size", "!friend", "!id"})
     public List<User> all(@RequestParam("search") Optional<String> findOpt,
                           @RequestParam("order") Optional<String> orderOpt) {

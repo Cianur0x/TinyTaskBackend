@@ -2,6 +2,7 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
+import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +54,6 @@ public class TaskController {
         return this.taskService.getTaskByIsChecked(isChecked, userId);
     }
 
-
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!isChecked", "!start", "!end"})
     public List<Task> allByTagId(@RequestParam("tagId") Long tagId, @RequestParam("id") Long userId) {
         log.info("Accediendo a todas las tareas según tagId");
@@ -74,6 +74,11 @@ public class TaskController {
         return ResponseEntity.ok(responseAll);
     }
 
+    @PutMapping(value = {"", "/viewers"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!isChecked", "!tagId", "!start", "!end"})
+    public List<UserDTO> addViewers(@RequestBody List<UserDTO> viewers, @RequestParam("id") Long taskId) {
+        return this.taskService.addViewerstoTask(viewers, taskId);
+    }
+
     @PostMapping({"", "/"})
     public Task newTask(@RequestBody Task task) {
         return this.taskService.save(task);
@@ -81,6 +86,7 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public Task one(@PathVariable("id") Long id) {
+        // TODO solo devolver la tarea con ciertos campos, crear un dto de tarea y de usuario para que no devuelva sus tareas creadas, al pedir una sola tarea
         return this.taskService.one(id);
     }
 
