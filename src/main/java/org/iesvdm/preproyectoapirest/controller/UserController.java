@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @RestController
@@ -24,19 +23,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friend", "!id"})
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friend", "!friendList", "!id"})
     public List<User> all() {
         log.info("Accediendo a todos los usuarios");
         return this.userService.all();
     }
 
-    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
-    public List<UserDTO> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
+    @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friendList",})
+    public UserDTO addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
                                          @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
 
         return this.userService.addUserToFriendList(findOpt, id);
     }
+
+    @GetMapping(value = { "/friendlist"}, params = {"!search", "!order", "!page", "!size", "!friend",})
+    public List<UserDTO> getFriendsList(@RequestParam("id") Long id) {
+        log.info("Accediendo a la lista de amigos");
+
+        return this.userService.getFriendList(id);
+    }
+
 
     @GetMapping(value = {"", "/"}, params = {"!page", "!size", "!friend", "!id"})
     public List<User> all(@RequestParam("search") Optional<String> findOpt,

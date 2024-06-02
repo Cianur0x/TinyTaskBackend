@@ -52,24 +52,35 @@ public class UserService {
         return null;
     }
 
-    public List<UserDTO> addUserToFriendList(Optional<String> findOpt, Long idUser) {
+    public UserDTO addUserToFriendList(Optional<String> findOpt, Long idUser) {
         User userToFriend = this.findByUsername(findOpt);
         User currentUser = this.one(idUser);
-        List<UserDTO> userDTOs = new ArrayList<>();
-        if (userToFriend != null) {
-            currentUser.getFriendList().add(userToFriend);
-            // userToFriend.getFriendList().add(currentUser);
-            this.userRepository.save(currentUser);
-            this.userRepository.save(userToFriend);
 
+        if (!currentUser.equals(userToFriend)) {
+            Set<User> setFriends = currentUser.getFriendList();
+
+            boolean friendExists = currentUser.getFriendList().stream().anyMatch(user -> user.getUsername().equals(userToFriend.getUsername()));
+            if (!friendExists) {
+                setFriends.add(userToFriend);
+                this.userRepository.save(currentUser);
+
+                return userMapper.userToUserDTO(userToFriend);
+            }
+        }
+
+        return null;
+    }
+
+    public List<UserDTO> getFriendList(Long idUser) {
+        User currentUser = this.one(idUser);
+        List<UserDTO> userDTOs = new ArrayList<>();
+        if (currentUser != null) {
             currentUser.getFriendList().forEach(user -> {
                 UserDTO userDTO = userMapper.userToUserDTO(user);
                 userDTOs.add(userDTO);
             });
-            
-            return userDTOs;
         }
-        return null;
+        return userDTOs;
     }
 
     public Map<String, Object> all(int page, int size) {
