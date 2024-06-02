@@ -2,7 +2,9 @@ package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.mapper.UserMapper;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +18,11 @@ import java.util.*;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public List<User> all() {
@@ -41,22 +45,29 @@ public class UserService {
     }
 
     public User findByUsername(Optional<String> findOpt) {
-        List<User> justOne =  this.all(findOpt, Optional.empty());
+        List<User> justOne = this.all(findOpt, Optional.empty());
         if (!justOne.isEmpty()) {
-            return  justOne.getFirst();
+            return justOne.getFirst();
         }
-        return  null;
+        return null;
     }
 
-    public Set<User> addUserToFriendList(Optional<String> findOpt, Long idUser){
+    public List<UserDTO> addUserToFriendList(Optional<String> findOpt, Long idUser) {
         User userToFriend = this.findByUsername(findOpt);
         User currentUser = this.one(idUser);
+        List<UserDTO> userDTOs = new ArrayList<>();
         if (userToFriend != null) {
             currentUser.getFriendList().add(userToFriend);
             // userToFriend.getFriendList().add(currentUser);
             this.userRepository.save(currentUser);
             this.userRepository.save(userToFriend);
-            return currentUser.getFriendList();
+
+            currentUser.getFriendList().forEach(user -> {
+                UserDTO userDTO = userMapper.userToUserDTO(user);
+                userDTOs.add(userDTO);
+            });
+            
+            return userDTOs;
         }
         return null;
     }

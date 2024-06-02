@@ -2,6 +2,7 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,10 @@ public class UserController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
-    public Set<User> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
-                                     @RequestParam("id") Long id) {
+    public List<UserDTO> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
+                                         @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
+
         return this.userService.addUserToFriendList(findOpt, id);
     }
 
