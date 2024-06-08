@@ -2,6 +2,7 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Tag;
+import org.iesvdm.preproyectoapirest.dto.TagDTO;
 import org.iesvdm.preproyectoapirest.service.TagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class TagController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!allTags"})
-    public List<Tag> all() {
+    public List<TagDTO> all() {
         log.info("Accediendo a todos las etiquetas");
         return this.tagService.all();
     }
@@ -36,7 +37,7 @@ public class TagController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
-    public List<Tag> getDefaultAllTagsByUser(@RequestParam("allTags") Optional<Long> findOpt) {
+    public List<TagDTO> getDefaultAllTagsByUser(@RequestParam("allTags") Optional<Long> findOpt) {
         return this.tagService.findTagsByUserID(findOpt);
     }
     

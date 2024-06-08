@@ -27,6 +27,9 @@ public class Badge {
 
     private Long numTasksDone;
 
+    @Column(columnDefinition = "text")
+    private String defaultText;
+
     @OneToMany(mappedBy = "badge")
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();

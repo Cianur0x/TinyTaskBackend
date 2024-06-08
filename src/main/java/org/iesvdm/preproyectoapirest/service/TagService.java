@@ -1,7 +1,9 @@
 package org.iesvdm.preproyectoapirest.service;
 
 import org.iesvdm.preproyectoapirest.domain.Tag;
+import org.iesvdm.preproyectoapirest.dto.TagDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.mapper.TagMapper;
 import org.iesvdm.preproyectoapirest.repository.TagRepository;
 import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.springframework.data.domain.Page;
@@ -16,14 +18,23 @@ import java.util.*;
 public class TagService {
     private final TagRepository tagRepository;
     private final TaskRepository taskRepository;
+    private final TagMapper tagMapper;
 
-    public TagService(TagRepository tagRepository, TaskRepository taskRepository) {
+    public TagService(TagRepository tagRepository, TaskRepository taskRepository, TagMapper tagMapper) {
         this.tagRepository = tagRepository;
         this.taskRepository = taskRepository;
+        this.tagMapper = tagMapper;
     }
 
-    public List<Tag> all() {
-        return this.tagRepository.findAll();
+    public List<TagDTO> all() {
+        List<Tag> tags = tagRepository.findAll();
+        List<TagDTO> tagDTOList = new ArrayList<>();
+        tags.forEach(tag -> {
+            TagDTO tagDTO = tagMapper.tagToTagDTO(tag);
+            tagDTOList.add(tagDTO);
+        });
+
+        return tagDTOList;
     }
 
     public List<Tag> all(Optional<String> findOpt, Optional<String> orderOpt) {
@@ -41,7 +52,7 @@ public class TagService {
         }
     }
 
-    public List<Tag> findTagsByUserID(Optional<Long> id) {
+    public List<TagDTO> findTagsByUserID(Optional<Long> id) {
         List<Tag> tags = new ArrayList<>();
         if (id.isPresent()) {
             tags = this.tagRepository.findTagsByUser_id(id.get());
@@ -49,7 +60,13 @@ public class TagService {
             tags.addAll(defaulTags);
         }
 
-        return tags;
+        List<TagDTO> tagDTOList = new ArrayList<>();
+        tags.forEach(tag -> {
+            TagDTO tagDTO = tagMapper.tagToTagDTO(tag);
+            tagDTOList.add(tagDTO);
+        });
+
+        return tagDTOList;
     }
 
     public Map<String, Object> all(int page, int size) {
