@@ -7,21 +7,10 @@
 # values ('#C73659', 'Personal', null);
 #
 # insert into tag (label_color, name, user_id)
-# values ('#A0DEFF', 'Reading', null);
-#
-# insert into tag (label_color, name, user_id)
 # values ('#77B0AA', 'Chores', null);
 #
 # insert into tag (label_color, name, user_id)
-# values ('#AF8260', 'Programming', null);
-#
-# insert into tag (label_color, name, user_id)
 # values ('#FFD0D0', 'Study', null);
-#
-# insert into tag (label_color, name, user_id)
-# values ('#FDFFC2', 'Workout', null);
-#
-#
 #
 # insert into badge (badge_name, default_text, streak_connection, num_tasks_done)
 # values ('NONE', null, 0, 0);

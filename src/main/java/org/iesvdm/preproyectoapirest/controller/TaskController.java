@@ -30,8 +30,7 @@ public class TaskController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!page", "!size", "!deadline", "!isChecked", "!tagId", "!id", "!start", "!end"})
-    public List<Task> all(@RequestParam("search") Optional<String> findOpt,
-                          @RequestParam("order") Optional<String> orderOpt) {
+    public List<Task> all(@RequestParam("search") Optional<String> findOpt, @RequestParam("order") Optional<String> orderOpt) {
         log.info("Accediendo a todas las tareas con filtros");
         return this.taskService.all(findOpt, orderOpt);
     }
@@ -66,9 +65,14 @@ public class TaskController {
         return this.taskService.getTaskByMonth(start, end, userId);
     }
 
+    @GetMapping(value = {"", "/getmap"}, params = {"!search", "!order", "!page", "!size", "!deadline", "!isChecked"})
+    public Map<String, Map<Integer, Long>> getMap(@RequestParam("start") String start, @RequestParam("end") String end, @RequestParam("id") Long userId) {
+        log.info("Accediendo a todas las tareas por año");
+        return this.taskService.getTaskMap(start, end, userId);
+    }
+
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                   @RequestParam(value = "size", defaultValue = "3") int size) {
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "3") int size) {
         log.info("Accediendo a tareas con paginación");
         Map<String, Object> responseAll = this.taskService.all(page, size);
         return ResponseEntity.ok(responseAll);

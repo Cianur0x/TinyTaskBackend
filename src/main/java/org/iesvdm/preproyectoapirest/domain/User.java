@@ -49,7 +49,10 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date lastConnection;
 
-    private String imgProfile;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(length = 100000)
+    private Byte[] profilePicture;
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
     @Enumerated(EnumType.STRING)

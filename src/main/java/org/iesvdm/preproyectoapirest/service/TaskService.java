@@ -159,4 +159,40 @@ public class TaskService {
         }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
 
     }
+
+    public Map<String, Map<Integer, Long>> getTaskMap(String startDate, String endDate, Long userId) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date start;
+        Date end;
+        try {
+            start = formatter.parse(startDate);
+            end = formatter.parse(endDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<Object[]> results = taskRepository.findMonthlyTaskCountByOwner(userId, start, end);
+
+        return getCounts(results);
+    }
+
+    private static Map<String, Map<Integer, Long>> getCounts(List<Object[]> results) {
+        Map<Integer, Long> totalTasks = new HashMap<>();
+        Map<Integer, Long> completedTasks = new HashMap<>();
+
+        for (Object[] result : results) {
+            Integer month = (Integer) result[0];
+            Long total = (Long) result[1];
+            Long completed = (Long) result[2];
+
+            totalTasks.put(month, total);
+            completedTasks.put(month, completed);
+        }
+
+        Map<String, Map<Integer, Long>> taskCounts = new HashMap<>();
+        taskCounts.put("totalTasks", totalTasks);
+        taskCounts.put("completedTasks", completedTasks);
+        return taskCounts;
+    }
+
 }

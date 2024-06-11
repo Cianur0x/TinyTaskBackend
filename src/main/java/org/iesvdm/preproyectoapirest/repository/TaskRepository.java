@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
@@ -24,9 +23,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "select T from Task  T Where T.deadLine between :startDate AND :endDate AND T.user.id = :userId")
     List<Task> getTasksByUserIDAndDeadlineBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userId") Long userId);
 
-//    SELECT MONTH(date_column) AS month, COUNT(*) AS count
-//    FROM date_month_year_table
-//    GROUP BY MONTH(date_column);
-
-    // Map<Integer, Long> countTasksByUser_IdAndDeadlineBetween(Long userId, Date startDate, Date endDate);
+    @Query("SELECT FUNCTION('MONTH', t.deadLine) AS mes, COUNT(t) AS total, SUM(CASE WHEN t.taskDone = true THEN 1 ELSE 0 END) AS completedCount" +
+            " FROM Task t WHERE t.user.id = :ownerId AND t.deadLine BETWEEN :startDate AND :endDate GROUP BY FUNCTION('MONTH', t.deadLine)")
+    List<Object[]> findMonthlyTaskCountByOwner(@Param("ownerId") Long ownerId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

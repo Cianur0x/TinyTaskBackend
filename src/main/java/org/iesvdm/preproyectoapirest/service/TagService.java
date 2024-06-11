@@ -55,9 +55,10 @@ public class TagService {
     public List<TagDTO> findTagsByUserID(Optional<Long> id) {
         List<Tag> tags = new ArrayList<>();
         if (id.isPresent()) {
-            tags = this.tagRepository.findTagsByUser_id(id.get());
             List<Tag> defaulTags = this.tagRepository.findTagsByUser_id(null);
             tags.addAll(defaulTags);
+            List<Tag> tagDTOList = this.tagRepository.findTagsByUser_id(id.get());
+            tags.addAll(tagDTOList);
         }
 
         List<TagDTO> tagDTOList = new ArrayList<>();
@@ -83,18 +84,22 @@ public class TagService {
         return response;
     }
 
-    public Tag save(Tag tag) {
-        return this.tagRepository.save(tag);
+    public TagDTO save(Tag tag) {
+        Tag tempTag = this.tagRepository.save(tag);
+        return tagMapper.tagToTagDTO(tempTag);
     }
 
-    public Tag one(Long id) {
-        return this.tagRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Tag.class));
+    public TagDTO one(Long id) {
+        Tag tempTag = this.tagRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Tag.class));
+        return tagMapper.tagToTagDTO(tempTag);
     }
 
-    public Tag replace(Long id, Tag tag) {
-        return this.tagRepository.findById(id)
+    public TagDTO replace(Long id, Tag tag) {
+        Tag tempTag = this.tagRepository.findById(id)
                 .map(p -> (id.equals(tag.getId()) ? this.tagRepository.save(tag) : null))
                 .orElseThrow(() -> new EntityNotFoundException(id, Tag.class));
+
+        return tagMapper.tagToTagDTO(tempTag);
     }
 
     public void delete(Long id) {

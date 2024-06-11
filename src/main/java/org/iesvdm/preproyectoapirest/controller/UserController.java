@@ -31,13 +31,13 @@ public class UserController {
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friendList",})
     public UserDTO addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
-                                         @RequestParam("id") Long id) {
+                                   @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
 
         return this.userService.addUserToFriendList(findOpt, id);
     }
 
-    @GetMapping(value = { "/friendlist"}, params = {"!search", "!order", "!page", "!size", "!friend",})
+    @GetMapping(value = {"/friendlist"}, params = {"!search", "!order", "!page", "!size", "!friend",})
     public List<UserDTO> getFriendsList(@RequestParam("id") Long id) {
         log.info("Accediendo a la lista de amigos");
 

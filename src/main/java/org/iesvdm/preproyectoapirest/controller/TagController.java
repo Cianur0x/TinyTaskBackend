@@ -40,7 +40,7 @@ public class TagController {
     public List<TagDTO> getDefaultAllTagsByUser(@RequestParam("allTags") Optional<Long> findOpt) {
         return this.tagService.findTagsByUserID(findOpt);
     }
-    
+
     @GetMapping(value = {"", "/"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "page", defaultValue = "0") int page,
                                                    @RequestParam(value = "size", defaultValue = "3") int size) {
@@ -50,17 +50,17 @@ public class TagController {
     }
 
     @PostMapping({"", "/"})
-    public Tag newTag(@RequestBody Tag tag) {
+    public TagDTO newTag(@RequestBody Tag tag) {
         return this.tagService.save(tag);
     }
 
     @GetMapping("/{id}")
-    public Tag one(@PathVariable("id") Long id) {
+    public TagDTO one(@PathVariable("id") Long id) {
         return this.tagService.one(id);
     }
 
     @PutMapping("/{id}")
-    public Tag replaceTag(@PathVariable("id") Long id, @RequestBody Tag tag) {
+    public TagDTO replaceTag(@PathVariable("id") Long id, @RequestBody Tag tag) {
         return this.tagService.replace(id, tag);
     }
 
