@@ -63,7 +63,6 @@ public class AuthController {
         response.put("roles", roles);
 
         return ResponseEntity.ok(response);
-
     }
 
     @PostMapping("/register")
@@ -95,6 +94,11 @@ public class AuthController {
                         Role adminRole = rolRepository.findByRoleName(ARole.ROL_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
                         roles.add(adminRole);
+                        break;
+                    case "mod":
+                        Role modRole = rolRepository.findByRoleName(ARole.ROL_MOD)
+                                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
+                        roles.add(modRole);
                         break;
 
                     default:

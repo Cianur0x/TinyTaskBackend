@@ -33,4 +33,8 @@ public class Badge {
     @OneToMany(mappedBy = "badge")
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();
+
+    public Badge (Long id) {
+        this.Id = id;
+    }
 }

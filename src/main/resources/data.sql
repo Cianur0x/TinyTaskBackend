@@ -2,6 +2,8 @@
 # values ('ROL_ADMIN');
 # insert into role (role_name)
 # values ('ROL_USER');
+# insert into role (role_name)
+# values ('ROL_MOD');
 #
 # insert into tag (label_color, name, user_id)
 # values ('#C73659', 'Personal', null);

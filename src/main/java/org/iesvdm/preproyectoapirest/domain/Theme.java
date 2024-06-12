@@ -27,4 +27,8 @@ public class Theme {
     @OneToMany(mappedBy = "theme")
     @JsonIgnore
     private Set<User> userSet = new HashSet<>();
+
+    public Theme(Long id){
+        this.id = id;
+    }
 }

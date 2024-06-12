@@ -14,7 +14,6 @@ import java.util.Optional;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-
     private final UserRepository userRepository;
 
     public ImageServiceImpl(UserRepository userRepository) {
@@ -26,6 +25,7 @@ public class ImageServiceImpl implements ImageService {
     public User saveImageFile(Long userId, MultipartFile file) {
 
         User user = null;
+
         try {
             Optional<User> optionalUser = userRepository.findById(userId);
             if (optionalUser.isPresent()) {
@@ -44,10 +44,7 @@ public class ImageServiceImpl implements ImageService {
                 log.info("Imaged Saved!");
             }
         } catch (IOException e) {
-            //todo handle better
             log.error("Error occurred", e);
-
-            // e.printStackTrace();
         }
 
         return user;

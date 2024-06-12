@@ -13,7 +13,7 @@ public class UserDTO {
 
     private String username;
 
-    private String imgProfile;
+    private Byte[] imgProfile;
 
     @Enumerated(EnumType.STRING)
     private State State;

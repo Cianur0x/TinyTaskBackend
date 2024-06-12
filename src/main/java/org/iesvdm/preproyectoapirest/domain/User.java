@@ -57,7 +57,7 @@ public class User {
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
     @Enumerated(EnumType.STRING)
     @ToString.Include
-    private State State;
+    private State state;
 
     @ToString.Include
     private String biography;
@@ -105,5 +105,9 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.badge = new Badge(1L);
+        this.lastConnection = new Date();
+        this.theme = new Theme(1L);
+        this.state = State.ACTIVE;
     }
 }

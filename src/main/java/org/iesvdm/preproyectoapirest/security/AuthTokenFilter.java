@@ -46,27 +46,26 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String token = parseToken(request);
         if (token != null) {
 
-            Object[] creationUsername = tokenUtils.getTimeCreationUsername(token);
+            Object[] creationUserId = tokenUtils.getTimeCreationUsername(token);
 
             long currentTime = new Date().getTime();
-            long creationTime = (Long) creationUsername[0];
+            long creationTime = (Long) creationUserId[0];
 
             if (currentTime - creationTime < 36000000) {
                 //Tiempo de vida de un token de autenticacion
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername((String) creationUsername[1]);
+                Long idUser = Long.parseLong((String) creationUserId[1]);
+                UserDetails userDetails = userDetailsService.loadUserById(idUser); // fixme
+
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
-
         }
 
         filterChain.doFilter(request, response);
-
     }
 
 }

@@ -4,8 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.service.ImageService;
 import org.iesvdm.preproyectoapirest.service.UserService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -29,4 +35,25 @@ public class ImageController {
     public User handleImagePost(@PathVariable Long id, @RequestParam("imagefile") MultipartFile file) {
         return this.imageService.saveImageFile(id, file);
     }
+
+    @GetMapping("/{id}/userimage")
+    public ResponseEntity<?> renderImageFromDB(@PathVariable Long id) throws IOException {
+        User recipeCommand = this.userService.one(id);
+
+        if (recipeCommand.getProfilePicture() != null) {
+            byte[] byteArray = new byte[recipeCommand.getProfilePicture().length];
+            int i = 0;
+
+            for (Byte wrappedByte : recipeCommand.getProfilePicture()) {
+                byteArray[i++] = wrappedByte; // auto unboxing
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(byteArray, headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Image not found", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
-    @Mapping(source = "imgProfile", target = "imgProfile")
+    @Mapping(source = "profilePicture", target = "imgProfile")
     @Mapping(source = "state", target = "state")
     UserDTO userToUserDTO(User user);
 
