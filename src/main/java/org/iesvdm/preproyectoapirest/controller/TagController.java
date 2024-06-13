@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://tiny-task-v1.vercel.app")
 @RequestMapping("/v1/api/tags")
 public class TagController {
     private final TagService tagService;

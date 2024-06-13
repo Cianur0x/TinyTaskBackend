@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("https://tiny-task-v1.vercel.app")
 @RequestMapping("/v1/api/prueba")
 public class PruebaController {
 
