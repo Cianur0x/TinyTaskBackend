@@ -69,19 +69,16 @@ public class WebSecurityConfig {
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/v1/api/**").permitAll() // FIXME poner solo autorizacion para users
                         .requestMatchers("/v1/api/auth/**").permitAll()
+                        .requestMatchers("/v1/api/**").permitAll()
+                        // .requestMatchers("/v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER", "ROL_MOD")
+                        // TODO activar una vez terminado para que desde fuera no se tenga acceso
                         .requestMatchers("/v1/api/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()
                 );
 
-
         http.authenticationProvider(authenticationProvider());
-
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        //https://stackoverflow.com/questions/59302026/spring-security-why-adding-the-jwt-filter-before-usernamepasswordauthenticatio
-        //http.addFilterAfter(authenticationJwtTokenFilter(), ExceptionTranslationFilter.class);
 
         return http.build();
     }

@@ -14,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -109,19 +108,24 @@ public class UserController {
                 }
             }
 
-            userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
-            userUpdate.setFriendList(dbUser.getFriendList());
-            userUpdate.setBadge(dbUser.getBadge());
-            userUpdate.setLastConnection(dbUser.getLastConnection());
-            userUpdate.setRoles(dbUser.getRoles());
-            userUpdate.setTags(dbUser.getTags());
-            userUpdate.setTareasCreadas(dbUser.getTareasCreadas());
-            userUpdate.setTheme(dbUser.getTheme());
-            userUpdate.setViewedTasks(dbUser.getViewedTasks());
+//            userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
+//            userUpdate.setFriendList(dbUser.getFriendList());
+//            userUpdate.setBadge(dbUser.getBadge());
+//            userUpdate.setLastConnection(dbUser.getLastConnection());
+//            userUpdate.setRoles(dbUser.getRoles());
+//            userUpdate.setTags(dbUser.getTags());
+//            userUpdate.setTareasCreadas(dbUser.getTareasCreadas());
+//            userUpdate.setTheme(dbUser.getTheme());
+//            userUpdate.setViewedTasks(dbUser.getViewedTasks());
 
-            this.userService.replace(dbUser.getId(), userUpdate);
+            dbUser.setUsername(userUpdate.getUsername());
+            dbUser.setEmail(userUpdate.getEmail());
+            dbUser.setPassword(encoder.encode(userUpdate.getPassword()));
 
-            userRepository.save(userUpdate);
+//             this.userService.replace(dbUser.getId(), userUpdate);
+//            userRepository.save(userUpdate);
+
+            userRepository.save(dbUser);
 
             log.info("Usuario actualizado en la base de datos{}", userUpdate.getUsername());
 
@@ -131,6 +135,41 @@ public class UserController {
 
         return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
     }
+
+    // TODO dto user solo con id y state
+    @PutMapping("/editstate")
+    public ResponseEntity<?> editState(@RequestBody User userUpdate) {
+        User dbUser = this.userService.one(userUpdate.getId());
+        if (dbUser != null) {
+
+            dbUser.setState(userUpdate.getState());
+            userRepository.save(dbUser);
+
+            log.info("Se ha actulizado el status del usuario: {}", dbUser.getState());
+
+            return ResponseEntity.ok(userUpdate);
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+    }
+
+    // TODO dto user solo con id y bio
+    @PutMapping("/editbio")
+    public ResponseEntity<?> editBio(@RequestBody User userUpdate) {
+        User dbUser = this.userService.one(userUpdate.getId());
+        if (dbUser != null) {
+
+            dbUser.setBiography(userUpdate.getBiography());
+            userRepository.save(dbUser);
+
+            log.info("Se ha actulizado la bio del usuario: {}", dbUser.getBiography());
+
+            return ResponseEntity.ok(userUpdate);
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+    }
+
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
