@@ -6,4 +6,4 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:21-alpine
 COPY --from=build /target/tinytask-backend.jar tinytask-backend.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar","preproyectoAPIRest.jar"]
+ENTRYPOINT ["java", "-jar","tinytask-backend.jar"]
