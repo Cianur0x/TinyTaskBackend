@@ -69,7 +69,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/v1/api/auth/**").permitAll()
-                        .requestMatchers("/v1/api/**").permitAll()
+                        .requestMatchers("/v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER", "ROL_MOD")
                         .requestMatchers("/v1/api/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()
                 );
