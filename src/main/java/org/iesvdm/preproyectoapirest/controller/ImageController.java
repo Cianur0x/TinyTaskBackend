@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,12 +31,13 @@ public class ImageController {
     public User showUploadForm(@PathVariable Long id, @RequestBody User user) {
         return this.userService.one(id);
     }
-
+    
     @PostMapping("/{id}/image")
     public User handleImagePost(@PathVariable Long id, @RequestParam("imagefile") MultipartFile file) {
         return this.imageService.saveImageFile(id, file);
     }
 
+    @Transactional
     @GetMapping("/{id}/userimage")
     public ResponseEntity<?> renderImageFromDB(@PathVariable Long id) throws IOException {
         User recipeCommand = this.userService.one(id);
