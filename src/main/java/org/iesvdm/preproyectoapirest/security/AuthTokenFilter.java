@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Date;
 
+@Slf4j
 @NoArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -44,6 +46,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String token = parseToken(request);
+        log.info("parsing token: {}", token);
+
         if (token != null) {
 
             Object[] creationUserId = tokenUtils.getTimeCreationUsername(token);
@@ -51,17 +55,25 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             long currentTime = new Date().getTime();
             long creationTime = (Long) creationUserId[0];
 
+            log.info("currentTime: {}", currentTime);
+            log.info("creationTime: {}", creationTime);
+
+            long resta = currentTime - creationTime;
+            log.info("resta: {}", resta);
+
             if (currentTime - creationTime < 36000000) {
                 //Tiempo de vida de un token de autenticacion
-
+                log.info("TODO BIEN PRINCIPIO");
                 Long idUser = Long.parseLong((String) creationUserId[1]);
                 UserDetails userDetails = userDetailsService.loadUserById(idUser); // fixme
+
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("TODO BIEN FINAL");
             }
         }
 
