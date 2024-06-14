@@ -1,6 +1,6 @@
-####################
-# Mayo
-###################
+-- ####################
+-- # Mayo
+-- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 values ('2024-05-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
@@ -121,9 +121,9 @@ insert into task (dead_line, description, ending_time, start_time, task_done, ta
 values ('2024-05-31', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 3, 1);
 
 
-####################
-# Junio
-###################
+-- ####################
+-- # Junio
+-- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 values ('2024-06-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
@@ -241,9 +241,9 @@ insert into task (dead_line, description, ending_time, start_time, task_done, ta
 values ('2024-06-30', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
 
 
-####################
-# Julio
-###################
+-- ####################
+-- # Julio
+-- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 values ('2024-07-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
@@ -362,3 +362,26 @@ values ('2024-07-30', 'Update client contact list.', '13:00:00', '12:00:00', tru
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 values ('2024-07-31', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 3, 1);
+
+
+INSERT INTO task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
+VALUES
+    ('2024-06-12', 'Planear las tareas del próximo sprint.', '18:00:00', '16:00:00', FALSE, '2h', 'Planear Tareas del Sprint', 2, 1),
+    ('2024-06-13', 'Revisar y aprobar hojas de tiempo.', '14:00:00', '12:00:00', TRUE, '2h', 'Revisar Hojas de Tiempo', 3, 1),
+    ('2024-06-14', 'Investigar tendencias de la industria para el informe del segundo trimestre.', '17:00:00', '15:00:00', FALSE, '2h', 'Investigar Tendencias Industriales', 1, 1),
+    ('2024-06-15', 'Escribir contenido para la nueva publicación de blog.', '18:00:00', '10:00:00', TRUE, '8h', 'Escribir Contenido de Blog', 2, 1),
+    ('2024-06-16', 'Preparar presentación para reunión con cliente.', '16:00:00', '14:00:00', FALSE, '2h', 'Preparar Presentación para Cliente', 3, 1),
+    ('2024-06-17', 'Analizar datos de tráfico del sitio web.', '13:00:00', '11:00:00', TRUE, '2h', 'Analizar Datos de Tráfico', 1, 1),
+    ('2024-06-18', 'Actualizar perfiles en redes sociales.', '15:00:00', '14:00:00', FALSE, '1h', 'Actualizar Redes Sociales', 1, 1),
+    ('2024-06-19', 'Hacer copia de seguridad de archivos del proyecto.', '12:00:00', '11:00:00', TRUE, '1h', 'Copia de Seguridad de Archivos', 1, 1),
+    ('2024-06-20', 'Investigar nuevas estrategias de marketing.', '18:00:00', '16:00:00', FALSE, '2h', 'Investigar Estrategias de Marketing', 2, 1),
+    ('2024-06-21', 'Crear un plan de presupuesto para el tercer trimestre.', '17:00:00', '14:00:00', TRUE, '3h', 'Crear Plan de Presupuesto Q3', 2, 1),
+    ('2024-06-22', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00', FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
+    ('2024-06-23', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h', 'Realizar Revisión de Código', 3, 1),
+    ('2024-06-24', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h', 'Planificar Actividad de Construcción de Equipo', 1, 1),
+    ('2024-06-25', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h', 'Actualizar Lista de Contactos', 2, 1),
+    ('2024-06-26', 'Probar la nueva actualización de software.', '16:00:00', '14:00:00', FALSE, '2h', 'Probar Actualización de Software', 3, 1),
+    ('2024-06-27', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00', FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
+    ('2024-06-28', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h', 'Realizar Revisión de Código', 3, 1),
+    ('2024-06-29', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h', 'Planificar Actividad de Construcción de Equipo', 1, 1),
+    ('2024-06-30', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h', 'Actualizar Lista de Contactos', 2, 1);

@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,6 +89,7 @@ public class TaskService {
         return all;
     }
 
+    @Transactional
     public List<Task> getTaskByMonth(String startDate, String endDate, Long userId) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date start;

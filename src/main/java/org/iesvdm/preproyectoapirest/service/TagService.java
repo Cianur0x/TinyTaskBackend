@@ -107,8 +107,11 @@ public class TagService {
             p.getTasks().stream()
                     .filter(task -> task.getTag().getId().equals(p.getId()))
                     .forEach(task -> {
-                        task.setTag(null);
-                        this.taskRepository.save(task);
+                        Optional<Tag> tagOptional = this.tagRepository.findById(1L); // siempre va a haber una tag
+                        if (tagOptional.isPresent()) {
+                            task.setTag(tagOptional.get());
+                            this.taskRepository.save(task);
+                        }
                     });
             this.tagRepository.delete(p);
             return p;

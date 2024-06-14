@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user",
+@Table(name = "\"user\"",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
@@ -50,9 +50,8 @@ public class User {
     private Date lastConnection;
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(length = 100000)
-    private Byte[] profilePicture;
+    @Column(columnDefinition="TEXT")
+    private byte[] profilePicture;
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
     @Enumerated(EnumType.STRING)

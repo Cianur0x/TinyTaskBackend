@@ -68,11 +68,11 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrerDTO registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username ya en uso!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username already in use!"));
         }
 
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email already in use!"));
         }
 
         // Create new user's account
@@ -112,7 +112,7 @@ public class AuthController {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("Usuario registrado correctamente!"));
+        return ResponseEntity.ok(new MessageResponse("User successfully registered!"));
     }
 
 }

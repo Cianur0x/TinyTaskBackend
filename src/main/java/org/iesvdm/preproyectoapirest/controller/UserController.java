@@ -98,32 +98,19 @@ public class UserController {
         if (dbUser != null) {
             if (!dbUser.getUsername().equalsIgnoreCase(userUpdate.getUsername())) {
                 if (this.userRepository.existsByUsername(userUpdate.getUsername())) {
-                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Username ya en uso!"));
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Username already in use!"));
                 }
             }
 
             if (!dbUser.getEmail().equalsIgnoreCase(userUpdate.getEmail())) {
                 if (this.userRepository.existsByEmail(userUpdate.getEmail())) {
-                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Email already in use!"));
                 }
             }
-
-//            userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
-//            userUpdate.setFriendList(dbUser.getFriendList());
-//            userUpdate.setBadge(dbUser.getBadge());
-//            userUpdate.setLastConnection(dbUser.getLastConnection());
-//            userUpdate.setRoles(dbUser.getRoles());
-//            userUpdate.setTags(dbUser.getTags());
-//            userUpdate.setTareasCreadas(dbUser.getTareasCreadas());
-//            userUpdate.setTheme(dbUser.getTheme());
-//            userUpdate.setViewedTasks(dbUser.getViewedTasks());
 
             dbUser.setUsername(userUpdate.getUsername());
             dbUser.setEmail(userUpdate.getEmail());
             dbUser.setPassword(encoder.encode(userUpdate.getPassword()));
-
-//             this.userService.replace(dbUser.getId(), userUpdate);
-//            userRepository.save(userUpdate);
 
             userRepository.save(dbUser);
 
@@ -133,7 +120,7 @@ public class UserController {
             return ResponseEntity.ok(userUpdate);
         }
 
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
     }
 
     // TODO dto user solo con id y state
@@ -150,7 +137,7 @@ public class UserController {
             return ResponseEntity.ok(userUpdate);
         }
 
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
     }
 
     // TODO dto user solo con id y bio
@@ -167,7 +154,7 @@ public class UserController {
             return ResponseEntity.ok(userUpdate);
         }
 
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
     }
 
 
