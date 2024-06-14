@@ -50,8 +50,6 @@ public class User {
     private Date lastConnection;
 
     @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(length = 100000)
     private Byte[] profilePicture;
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
