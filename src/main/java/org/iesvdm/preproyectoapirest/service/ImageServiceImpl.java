@@ -41,4 +41,13 @@ public class ImageServiceImpl {
 
         return null;
     }
+
+    public void delete(Long id) {
+        Optional<User> optionalUser = this.userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setProfilePicture(null);
+            userRepository.save(user);
+        }
+    }
 }

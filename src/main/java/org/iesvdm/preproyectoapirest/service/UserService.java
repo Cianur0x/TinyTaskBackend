@@ -1,15 +1,21 @@
 package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.iesvdm.preproyectoapirest.domain.MessageResponse;
 import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.EditUserDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.mapper.EditUserMapper;
 import org.iesvdm.preproyectoapirest.mapper.UserMapper;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -18,11 +24,15 @@ import java.util.*;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final EditUserMapper editUserMapper;
     private final UserMapper userMapper;
+    private final PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, EditUserMapper editUserMapper, PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.editUserMapper = editUserMapper;
         this.userMapper = userMapper;
+        this.encoder = encoder;
     }
 
     public List<User> all() {
@@ -106,6 +116,16 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(id, User.class));
     }
 
+    public EditUserDTO getEditUser(Long id) {
+        User currentUser = this.one(id);
+
+        if (currentUser != null) {
+            return editUserMapper.userToUserDTO(currentUser);
+        }
+
+        return null;
+    }
+
     public User replace(Long id, User user) {
         return this.userRepository.findById(id).map(p -> (id.equals(user.getId()) ?
                         this.userRepository.save(user) : null))
@@ -118,4 +138,74 @@ public class UserService {
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, User.class));
     }
+
+    public ResponseEntity<?> editUser(EditUserDTO userUpdate) {
+        User dbUser = this.one(userUpdate.getId());
+        if (dbUser != null) {
+            if (!dbUser.getUsername().equalsIgnoreCase(userUpdate.getUsername())) {
+                if (this.userRepository.existsByUsername(userUpdate.getUsername())) {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Username already in use!"));
+                }
+            }
+
+            if (!dbUser.getEmail().equalsIgnoreCase(userUpdate.getEmail())) {
+                if (this.userRepository.existsByEmail(userUpdate.getEmail())) {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Email already in use!"));
+                }
+            }
+
+            boolean matchPass = encoder.matches(userUpdate.getPassword(), dbUser.getPassword());
+
+            if (matchPass) {
+                dbUser.setUsername(userUpdate.getUsername());
+                dbUser.setEmail(userUpdate.getEmail());
+
+                if (!StringUtils.isEmpty(userUpdate.getNewPass())) {
+                    dbUser.setPassword(encoder.encode(userUpdate.getNewPass()));
+                }
+
+                userRepository.save(dbUser);
+
+                log.info("Usuario actualizado en la base de datos: {}", dbUser.getUsername());
+
+                return ResponseEntity.ok(userUpdate);
+            }
+
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Passwords do not match!"));
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
+    }
+
+    public ResponseEntity<?> editState(User userUpdate) {
+        User dbUser = this.one(userUpdate.getId());
+        if (dbUser != null) {
+
+            dbUser.setState(userUpdate.getState());
+            userRepository.save(dbUser);
+
+            log.info("Se ha actulizado el status del usuario: {}", dbUser.getState());
+
+            return ResponseEntity.ok(userUpdate);
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
+    }
+
+    public ResponseEntity<?> editBio(User userUpdate) {
+        User dbUser = this.one(userUpdate.getId());
+        if (dbUser != null) {
+
+            dbUser.setBiography(userUpdate.getBiography());
+            userRepository.save(dbUser);
+
+            log.info("Se ha actulizado la bio del usuario: {}", dbUser.getBiography());
+
+            return ResponseEntity.ok(userUpdate);
+        }
+
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: User does not exist!"));
+    }
+
+
 }

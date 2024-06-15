@@ -24,7 +24,7 @@ public class ImageController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> uploadImage(@PathVariable("id") Long id, @RequestParam("image") MultipartFile file) throws IOException {
-        ImageUploadResponse response = imageDataService.uploadImage(id, file);
+        ImageUploadResponse response = this.imageDataService.uploadImage(id, file);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
@@ -32,11 +32,17 @@ public class ImageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getImageByName(@PathVariable("id") Long id) {
-        byte[] image = imageDataService.getImage(id);
+        byte[] image = this.imageDataService.getImage(id);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/png"))
                 .body(image);
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        this.imageDataService.delete(id);
+    }
 }
