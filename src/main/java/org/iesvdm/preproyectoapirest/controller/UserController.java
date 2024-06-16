@@ -1,8 +1,8 @@
 package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.preproyectoapirest.domain.MessageResponse;
 import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.EditUserDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.iesvdm.preproyectoapirest.security.TokenUtils;
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friendList",})
-    public UserDTO addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
+    public ResponseEntity<?> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
                                    @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
 
@@ -87,94 +87,44 @@ public class UserController {
         return this.userService.one(id);
     }
 
+    @GetMapping("/getuser/{id}")
+    public EditUserDTO getEditUser(@PathVariable("id") Long id) {
+        return this.userService.getEditUser(id);
+    }
+
     @PutMapping("/{id}")
     public User replaceUser(@PathVariable("id") Long id, @RequestBody User user) {
         return this.userService.replace(id, user);
     }
 
     @PutMapping("/edituser")
-    public ResponseEntity<?> editUser(@RequestBody User userUpdate) {
-        User dbUser = this.userService.one(userUpdate.getId());
-        if (dbUser != null) {
-            if (!dbUser.getUsername().equalsIgnoreCase(userUpdate.getUsername())) {
-                if (this.userRepository.existsByUsername(userUpdate.getUsername())) {
-                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Username ya en uso!"));
-                }
-            }
-
-            if (!dbUser.getEmail().equalsIgnoreCase(userUpdate.getEmail())) {
-                if (this.userRepository.existsByEmail(userUpdate.getEmail())) {
-                    return ResponseEntity.badRequest().body(new MessageResponse("Error: Email ya en uso!"));
-                }
-            }
-
-//            userUpdate.setPassword(encoder.encode(userUpdate.getPassword()));
-//            userUpdate.setFriendList(dbUser.getFriendList());
-//            userUpdate.setBadge(dbUser.getBadge());
-//            userUpdate.setLastConnection(dbUser.getLastConnection());
-//            userUpdate.setRoles(dbUser.getRoles());
-//            userUpdate.setTags(dbUser.getTags());
-//            userUpdate.setTareasCreadas(dbUser.getTareasCreadas());
-//            userUpdate.setTheme(dbUser.getTheme());
-//            userUpdate.setViewedTasks(dbUser.getViewedTasks());
-
-            dbUser.setUsername(userUpdate.getUsername());
-            dbUser.setEmail(userUpdate.getEmail());
-            dbUser.setPassword(encoder.encode(userUpdate.getPassword()));
-
-//             this.userService.replace(dbUser.getId(), userUpdate);
-//            userRepository.save(userUpdate);
-
-            userRepository.save(dbUser);
-
-            log.info("Usuario actualizado en la base de datos{}", userUpdate.getUsername());
-
-
-            return ResponseEntity.ok(userUpdate);
-        }
-
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+    public ResponseEntity<?> editUser(@RequestBody EditUserDTO userUpdate) {
+        return this.userService.editUser(userUpdate);
     }
 
     // TODO dto user solo con id y state
     @PutMapping("/editstate")
     public ResponseEntity<?> editState(@RequestBody User userUpdate) {
-        User dbUser = this.userService.one(userUpdate.getId());
-        if (dbUser != null) {
-
-            dbUser.setState(userUpdate.getState());
-            userRepository.save(dbUser);
-
-            log.info("Se ha actulizado el status del usuario: {}", dbUser.getState());
-
-            return ResponseEntity.ok(userUpdate);
-        }
-
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+        return this.userService.editState(userUpdate);
     }
 
     // TODO dto user solo con id y bio
     @PutMapping("/editbio")
     public ResponseEntity<?> editBio(@RequestBody User userUpdate) {
-        User dbUser = this.userService.one(userUpdate.getId());
-        if (dbUser != null) {
-
-            dbUser.setBiography(userUpdate.getBiography());
-            userRepository.save(dbUser);
-
-            log.info("Se ha actulizado la bio del usuario: {}", dbUser.getBiography());
-
-            return ResponseEntity.ok(userUpdate);
-        }
-
-        return ResponseEntity.badRequest().body(new MessageResponse("Error: El usuario no existe!"));
+        return this.userService.editBio(userUpdate);
     }
-
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         this.userService.delete(id);
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{myid}/{friendid}")
+    public void deleteUser(@PathVariable("friendid") Long id, @PathVariable("myid") Long myId ) {
+        this.userService.deleteFriend(myId, id  );
     }
 }

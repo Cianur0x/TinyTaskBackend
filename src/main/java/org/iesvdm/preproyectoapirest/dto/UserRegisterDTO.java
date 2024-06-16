@@ -1,4 +1,4 @@
-package org.iesvdm.preproyectoapirest.domain;
+package org.iesvdm.preproyectoapirest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Set;
 @Data
 @AllArgsConstructor
-public class UserRegistrerDTO {
+public class UserRegisterDTO {
     private String username;
     private String password;
     private String email;

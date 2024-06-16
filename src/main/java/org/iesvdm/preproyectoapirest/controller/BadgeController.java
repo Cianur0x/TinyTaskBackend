@@ -54,6 +54,11 @@ public class BadgeController {
         return this.badgeService.one(id);
     }
 
+    @GetMapping("/userbadge/{id}")
+    public Badge getUserBadge(@PathVariable("id") Long id) {
+        return this.badgeService.getUserBadge(id);
+    }
+
     @PutMapping("/{id}")
     public Badge replaceBadge(@PathVariable("id") Long id, @RequestBody Badge badge) {
         return this.badgeService.replace(id, badge);

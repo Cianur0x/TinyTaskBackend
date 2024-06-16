@@ -1,4 +1,4 @@
-package org.iesvdm.preproyectoapirest.domain;
+package org.iesvdm.preproyectoapirest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

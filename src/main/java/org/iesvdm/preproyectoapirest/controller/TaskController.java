@@ -2,6 +2,7 @@ package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
+import org.iesvdm.preproyectoapirest.dto.TaskDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -92,6 +93,12 @@ public class TaskController {
     public Task one(@PathVariable("id") Long id) {
         // TODO solo devolver la tarea con ciertos campos, crear un dto de tarea y de usuario para que no devuelva sus tareas creadas, al pedir una sola tarea
         return this.taskService.one(id);
+    }
+
+    @GetMapping("/viewedtasks/{id}")
+    public List<TaskDTO> getTasksViewed(@PathVariable("id") Long viewer) {
+        // TODO solo devolver la tarea con ciertos campos, crear un dto de tarea y de usuario para que no devuelva sus tareas creadas, al pedir una sola tarea
+        return this.taskService.getTasksViewed(viewer);
     }
 
     @PutMapping("/{id}")

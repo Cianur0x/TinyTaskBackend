@@ -1,7 +1,7 @@
 package org.iesvdm.preproyectoapirest.domain;
 
 public enum UBadge {
-    NONE,
+    BRONZE,
     GOLD,
     PLATINUM,
     DIAMOND,

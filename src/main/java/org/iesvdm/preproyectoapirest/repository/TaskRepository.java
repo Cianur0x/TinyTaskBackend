@@ -23,7 +23,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "select T from Task  T Where T.deadLine between :startDate AND :endDate AND T.user.id = :userId")
     List<Task> getTasksByUserIDAndDeadlineBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userId") Long userId);
 
-    @Query("SELECT FUNCTION('MONTH', t.deadLine) AS mes, COUNT(t) AS total, SUM(CASE WHEN t.taskDone = true THEN 1 ELSE 0 END) AS completedCount" +
-            " FROM Task t WHERE t.user.id = :ownerId AND t.deadLine BETWEEN :startDate AND :endDate GROUP BY FUNCTION('MONTH', t.deadLine)")
+    @Query(value = "SELECT EXTRACT(MONTH FROM t.deadLine) AS mes, COUNT(t) AS total, SUM(CASE WHEN t.taskDone = true THEN 1 ELSE 0 END) AS completedCount" +
+            " FROM Task t WHERE t.user.id = :ownerId AND t.deadLine BETWEEN :startDate AND :endDate GROUP BY EXTRACT(MONTH FROM t.deadLine)")
     List<Object[]> findMonthlyTaskCountByOwner(@Param("ownerId") Long ownerId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 }

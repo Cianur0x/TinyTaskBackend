@@ -1,6 +1,7 @@
 package org.iesvdm.preproyectoapirest.service;
 
 import org.iesvdm.preproyectoapirest.domain.Badge;
+import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.repository.BadgeRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
@@ -78,5 +79,10 @@ public class BadgeService {
             this.badgeRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Badge.class));
+    }
+
+    public Badge getUserBadge(Long id) {
+        Optional<User> user = this.userRepository.findById(id);
+        return user.map(User::getBadge).orElse(null);
     }
 }

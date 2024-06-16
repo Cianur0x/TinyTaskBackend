@@ -22,6 +22,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class User {
@@ -50,7 +51,8 @@ public class User {
     private Date lastConnection;
 
     @Lob
-    private Byte[] profilePicture;
+    @Column(columnDefinition="TEXT")
+    private byte[] profilePicture;
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
     @Enumerated(EnumType.STRING)

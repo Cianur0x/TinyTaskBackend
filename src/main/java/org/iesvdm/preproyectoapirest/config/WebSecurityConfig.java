@@ -8,7 +8,6 @@ import org.iesvdm.preproyectoapirest.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -62,14 +61,17 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults())
+
+        http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(handlingConfigurer -> handlingConfigurer.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/v1/api/auth/**").permitAll()
-                        .requestMatchers("/v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER", "ROL_MOD")
+                        .requestMatchers("/v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
+                        .requestMatchers("/v1/api/admin/**").hasAnyAuthority("ROL_ADMIN")
                         .requestMatchers("/v1/api/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()
                 );

@@ -1,10 +1,8 @@
 package org.iesvdm.preproyectoapirest.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.preproyectoapirest.domain.User;
-import org.iesvdm.preproyectoapirest.service.ImageService;
-import org.iesvdm.preproyectoapirest.service.UserService;
-import org.springframework.http.HttpHeaders;
+import org.iesvdm.preproyectoapirest.domain.ImageUploadResponse;
+import org.iesvdm.preproyectoapirest.service.ImageServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,43 +17,33 @@ import java.io.IOException;
 @CrossOrigin(origins = "https://tiny-task-v1.vercel.app")
 @RequestMapping("/v1/api/image")
 public class ImageController {
-    private final ImageService imageService;
-    private final UserService userService;
+    private final ImageServiceImpl imageDataService;
 
-    public ImageController(ImageService imageService, UserService userService) {
-        this.imageService = imageService;
-        this.userService = userService;
+    public ImageController(ImageServiceImpl imageService) {
+        this.imageDataService = imageService;
     }
 
-    @GetMapping("/{id}/image")
-    public User showUploadForm(@PathVariable Long id, @RequestBody User user) {
-        return this.userService.one(id);
-    }
-    
-    @PostMapping("/{id}/image")
-    public User handleImagePost(@PathVariable Long id, @RequestParam("imagefile") MultipartFile file) {
-        return this.imageService.saveImageFile(id, file);
+    @PostMapping("/{id}")
+    public ResponseEntity<?> uploadImage(@PathVariable("id") Long id, @RequestParam("image") MultipartFile file) throws IOException {
+        ImageUploadResponse response = this.imageDataService.uploadImage(id, file);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
     }
 
-    @Transactional
-    @GetMapping("/{id}/userimage")
-    public ResponseEntity<?> renderImageFromDB(@PathVariable Long id) throws IOException {
-        User recipeCommand = this.userService.one(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getImageByName(@PathVariable("id") Long id) {
+        byte[] image = this.imageDataService.getImage(id);
 
-        if (recipeCommand.getProfilePicture() != null) {
-            byte[] byteArray = new byte[recipeCommand.getProfilePicture().length];
-            int i = 0;
-
-            for (Byte wrappedByte : recipeCommand.getProfilePicture()) {
-                byteArray[i++] = wrappedByte; // auto unboxing
-            }
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG);
-            return new ResponseEntity<>(byteArray, headers, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Image not found", HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/png"))
+                .body(image);
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        this.imageDataService.delete(id);
+    }
 }
