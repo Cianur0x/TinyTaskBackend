@@ -13,7 +13,7 @@ public interface TaskMapper {
     @Mapping(source = "taskDone", target = "taskDone")
     @Mapping(source = "description", target = "description")
     @Mapping(source = "deadLine", target = "deadLine", dateFormat = "yyyy-MM-dd")
-    TaskDTO userToManUserDTO(Task user);
+    TaskDTO taskToTaskDTO(Task user);
 
-    Task manUserDTOTOUser(TaskDTO userDTO);
+    Task taskDTOToTask(TaskDTO userDTO);
 }

@@ -3,8 +3,10 @@ package org.iesvdm.preproyectoapirest.service;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.preproyectoapirest.domain.Task;
 import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.dto.TaskDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
+import org.iesvdm.preproyectoapirest.mapper.TaskMapper;
 import org.iesvdm.preproyectoapirest.mapper.UserMapper;
 import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
@@ -25,11 +27,13 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final TaskMapper taskMapper;
 
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository, UserMapper userMapper) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository, UserMapper userMapper, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.taskMapper = taskMapper;
     }
 
     public List<Task> all() {
@@ -80,7 +84,7 @@ public class TaskService {
 
     public List<Task> getTaskByIsChecked(Boolean isChecked, Long userId) {
         Sort sort = Sort.by("deadLine").ascending();
-        List<Task> all = this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort) ;
+        List<Task> all = this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort);
         all.forEach(this::conversionToWatchers);
         return all;
     }
@@ -235,6 +239,19 @@ public class TaskService {
         return taskCounts;
     }
 
+    public List<TaskDTO> getTasksViewed(Long userId) {
+        List<TaskDTO> taskDTOs = new ArrayList<>();
+        Optional<User> userOptional = this.userRepository.findById(userId);
 
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.getViewedTasks().forEach(task -> {
+                TaskDTO taskDTO = this.taskMapper.taskToTaskDTO(task);
+                taskDTOs.add(taskDTO);
+            });
+        }
+
+        return taskDTOs;
+    }
 
 }
