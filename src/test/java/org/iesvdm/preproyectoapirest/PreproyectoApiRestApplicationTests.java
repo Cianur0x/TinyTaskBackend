@@ -1,8 +1,6 @@
 package org.iesvdm.preproyectoapirest;
 
-import org.iesvdm.preproyectoapirest.domain.ARole;
-import org.iesvdm.preproyectoapirest.domain.Role;
-import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.domain.*;
 import org.iesvdm.preproyectoapirest.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

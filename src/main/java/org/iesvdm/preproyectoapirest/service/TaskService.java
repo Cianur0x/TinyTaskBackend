@@ -67,17 +67,22 @@ public class TaskService {
         }
 
         all = this.taskRepository.findTaskByDeadLineAndUser_IdOrderByTitleAsc(date, userId);
+        all.forEach(this::conversionToWatchers);
 
         return all;
     }
 
     public List<Task> getTaskByIsChecked(Boolean isChecked, Long tagId, Long userId) {
-        return this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(isChecked, tagId, userId);
+        List<Task> all = this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(isChecked, tagId, userId);
+        all.forEach(this::conversionToWatchers);
+        return all;
     }
 
     public List<Task> getTaskByIsChecked(Boolean isChecked, Long userId) {
         Sort sort = Sort.by("deadLine").ascending();
-        return this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort);
+        List<Task> all = this.taskRepository.findTaskByTaskDoneAndUser_Id(isChecked, userId, sort) ;
+        all.forEach(this::conversionToWatchers);
+        return all;
     }
 
     public List<Task> getAllTaskByTagId(Long tagId, Long userId) {
@@ -85,6 +90,7 @@ public class TaskService {
 
         all.addAll(this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(false, tagId, userId));
         all.addAll(this.taskRepository.findTaskByTaskDoneAndUser_IdAndTag_IdOrderByTitleAsc(true, tagId, userId));
+        all.forEach(this::conversionToWatchers);
 
         return all;
     }
@@ -101,8 +107,25 @@ public class TaskService {
             throw new RuntimeException(e);
         }
 
-        return this.taskRepository.getTasksByUserIDAndDeadlineBetween(start, end, userId);
+        List<Task> all = this.taskRepository.getTasksByUserIDAndDeadlineBetween(start, end, userId);
+        all.forEach(this::conversionToWatchers);
+        return all;
     }
+
+    private Task conversionToWatchers(Task task) {
+        Set<UserDTO> allUserDTOs = new HashSet<>();
+        Set<User> users = task.getViewers();
+
+        users.forEach(user -> {
+            UserDTO userDTO = this.userMapper.userToUserDTO(user);
+            allUserDTOs.add(userDTO);
+        });
+
+        task.setWatchers(allUserDTOs);
+
+        return task;
+    }
+
 
     public Map<String, Object> all(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("tag_name").ascending());
@@ -119,21 +142,25 @@ public class TaskService {
     }
 
     public Task save(Task task) {
+        conversionToWatchers(task);
         return this.taskRepository.save(task);
     }
 
     public List<UserDTO> addViewerstoTask(List<UserDTO> viewersAdded, Long taskID) {
+
         Task currentTask = one(taskID);
         currentTask.getViewers().forEach(user -> {
                     user.getViewedTasks().remove(currentTask);
                     this.userRepository.save(user);
                 }
         );
+
         this.taskRepository.save(currentTask);
 
         viewersAdded.forEach(userDTO -> {
             User user = this.userRepository.findById(userDTO.getId())
                     .orElseThrow(() -> new EntityNotFoundException(userDTO.getId(), User.class));
+
             user.getViewedTasks().add(currentTask);
             this.userRepository.save(user);
 
@@ -153,7 +180,9 @@ public class TaskService {
     }
 
     public Task one(Long id) {
-        return this.taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
+        Optional<Task> taskOptional = this.taskRepository.findById(id);
+        return taskOptional.map(this::conversionToWatchers).orElse(null);
+
     }
 
     public Task replace(Long id, Task task) {
@@ -169,7 +198,6 @@ public class TaskService {
             this.taskRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));
-
     }
 
     public Map<String, Map<Integer, Long>> getTaskMap(String startDate, String endDate, Long userId) {
@@ -206,5 +234,7 @@ public class TaskService {
         taskCounts.put("completedTasks", completedTasks);
         return taskCounts;
     }
+
+
 
 }
