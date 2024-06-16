@@ -1,12 +1,17 @@
 package org.iesvdm.preproyectoapirest;
 
-import org.iesvdm.preproyectoapirest.domain.*;
+import org.iesvdm.preproyectoapirest.domain.ARole;
+import org.iesvdm.preproyectoapirest.domain.Role;
+import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootTest
 class PreproyectoApiRestApplicationTests {
@@ -21,6 +26,9 @@ class PreproyectoApiRestApplicationTests {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
 
     @Test
     void contextLoads() {
@@ -28,105 +36,167 @@ class PreproyectoApiRestApplicationTests {
 
     @Test
     void crearData() {
-        Role role1 = new Role();
-       //  role1.setRoleName("Beginner");
-        roleRepository.save(role1);
+        Role role = new Role(1L, ARole.ROL_ADMIN, new HashSet<>());
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(role);
 
-        Role role2 = new Role();
-        // role2.setRoleName("Advanced");
-        roleRepository.save(role2);
+        Role role2 = new Role(2L, ARole.ROL_USER, new HashSet<>());
+        Set<Role> roleSet2 = new HashSet<>();
+        roleSet2.add(role2);
 
-        Theme theme1 = new Theme();
-        theme1.setPrimaryColor("black");
-        theme1.setSecondaryColor("white");
-        themeRepository.save(theme1);
+//        User user1 = User.builder()
+//                .username("Caiasdanurozx3")
+//                .password(encoder.encode("luffy1"))
+//                .email("Ca11asdianauro2zxzx@gmail.com")
+//                .lastConnection(new Date(2019 - 1900, 1, 29))
+//                .roles(roleSet)
+//                .build();
+//        userRepository.save(user1);
+//
+//        User user2 = User.builder()
+//                .username("Hai12dro123")
+//                .password(encoder.encode("water2"))
+//                .email("Hai11adrzxo@gmail.com")
+//                .lastConnection(new Date(2019 - 1900, 1, 29))
+//                .roles(roleSet2)
+//                .build();
+//        userRepository.save(user2);
 
-        Theme theme2 = new Theme();
-        theme2.setPrimaryColor("pink");
-        theme2.setSecondaryColor("white");
-        themeRepository.save(theme2);
-
-        User user1 = new User();
-        user1.setUsername("Cianuro");
-       //  user1.setRole(role2);
-        user1.setTheme(theme1);
+        User user1 = User.builder()
+                .username("Cianuro")
+                .password(encoder.encode("luffy1"))
+                .email("Cianuro@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 1, 29))
+                .roles(roleSet)
+                .build();
         userRepository.save(user1);
 
-        User user2 = new User();
-        user2.setUsername("Jake");
-        // user2.setRole(role1);
-        user2.setTheme(theme2);
+        User user2 = User.builder()
+                .username("Hidro")
+                .password(encoder.encode("water2"))
+                .email("Hidro@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 12, 29))
+                .roles(roleSet2)
+                .build();
         userRepository.save(user2);
 
-        User user3 = new User();
-        user3.setUsername("Finn");
-        // user3.setRole(role1);
-        user3.setTheme(theme2);
+        User user3 = User.builder()
+                .username("Fosforo")
+                .password(encoder.encode("match3"))
+                .email("Fosforo@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 9, 29))
+                .roles(roleSet2)
+                .build();
         userRepository.save(user3);
 
-        Tag tag1 = new Tag();
-        tag1.setUser(user1);
-        tag1.setName("DWES");
-        tagRepository.save(tag1);
+        User user4 = User.builder()
+                .username("Mercurio")
+                .password(encoder.encode("liquid4"))
+                .email("Mercurio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 6, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user4);
 
-        Tag tag2 = new Tag();
-        tag2.setUser(user2);
-        tag2.setName("DWEC");
-        tagRepository.save(tag2);
+        User user5 = User.builder()
+                .username("Oxigeno")
+                .password(encoder.encode("breath5"))
+                .email("Oxigeno@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user5);
 
-        Tag tag3 = new Tag();
-        tag3.setUser(user3);
-        tag3.setName("EIEM");
-        tagRepository.save(tag3);
+        User user6 = User.builder()
+                .username("Sodio")
+                .password(encoder.encode("salt6"))
+                .email("Sodio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 4, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user6);
 
-        // TODO Calendar implementation, Date is deprecated
-        Task task1 = new Task();
-        task1.setTitle("Do postman Test");
-        task1.setUser(user1);
-        task1.setTaskDone(false);
-        task1.setTag(tag1);
-        task1.setDeadLine(new Date(2024 - 1900, 3, 07, 23, 59, 59));
-        taskRepository.save(task1);
+        User user7 = User.builder()
+                .username("Cloro")
+                .password(encoder.encode("clean7"))
+                .email("Cloro@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 3, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user7);
 
-        Task task2 = new Task();
-        task2.setTitle("Do CRUD with Angular");
-        task2.setUser(user2);
-        task2.setTaskDone(false);
-        task2.setTag(tag2);
-        task2.setDeadLine(new Date(2024 - 1900, 3, 07, 23, 59, 59));
-        taskRepository.save(task2);
+        User user8 = User.builder()
+                .username("Potasio")
+                .password(encoder.encode("fruit8"))
+                .email("Potasio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 2, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user8);
 
-        Task task3 = new Task();
-        task3.setTitle("Do presentation pt.3 y pt.4");
-        task3.setUser(user3);
-        task3.setTaskDone(false);
-        task3.setTag(tag3);
-        task3.setDeadLine(new Date(2024 - 1900, 3, 07, 23, 59, 59));
-        taskRepository.save(task3);
+        User user9 = User.builder()
+                .username("Calcio")
+                .password(encoder.encode("bone9"))
+                .email("Calcio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 1, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user9);
 
-        Task task4 = new Task();
-        task4.setTitle("Take notes from presentation p3");
-        task4.setUser(user1);
-        task4.setTaskDone(true);
-        task4.setTag(tag2);
-        task4.setDeadLine(new Date(2024 - 1900, 2, 29, 23, 59, 59));
-        taskRepository.save(task4);
+        User user10 = User.builder()
+                .username("Magnesio")
+                .password(encoder.encode("mineral10"))
+                .email("Magnesio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 1, 29))
+                .roles(roleSet2)
+                .build();
+        userRepository.save(user10);
 
-        Task task5 = new Task();
-        task5.setTitle("Do presentation project");
-        task5.setUser(user2);
-        task5.setTaskDone(true);
-        task5.setTag(tag1);
-        task5.setDeadLine(new Date(2024 - 1900, 2, 29, 23, 59, 59));
-        taskRepository.save(task5);
+        User user11 = User.builder()
+                .username("Hierro")
+                .password(encoder.encode("metal11"))
+                .email("Hierro@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet)
+                .build();
+        userRepository.save(user11);
 
-        Task task6 = new Task();
-        task5.setTitle("Prepare presentation");
-        task6.setUser(user3);
-        task6.setTaskDone(true);
-        task6.setTag(tag3);
-        task6.setDeadLine(new Date(2024 - 1900, 2, 29, 23, 59, 59));
-        taskRepository.save(task6);
+        User user12 = User.builder()
+                .username("Cobre")
+                .password(encoder.encode("wire12"))
+                .email("Cobre@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet)
+                .build();
+        userRepository.save(user12);
+
+        User user13 = User.builder()
+                .username("Plata")
+                .password(encoder.encode("silver13"))
+                .email("Plata@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet)
+                .build();
+        userRepository.save(user13);
+
+        User user14 = User.builder()
+                .username("Oro")
+                .password(encoder.encode("gold14"))
+                .email("Oro@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet)
+                .build();
+        userRepository.save(user14);
+
+        User user15 = User.builder()
+                .username("Uranio")
+                .password(encoder.encode("nuclear15"))
+                .email("Uranio@gmail.com")
+                .lastConnection(new Date(2019 - 1900, 5, 29))
+                .roles(roleSet)
+                .build();
+        userRepository.save(user15);
     }
-
 }
+
+

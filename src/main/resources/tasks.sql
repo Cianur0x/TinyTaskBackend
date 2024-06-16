@@ -1,124 +1,66 @@
+
+
 -- ####################
 -- # Mayo
 -- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 values ('2024-05-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
-        'Submit Weekly Report', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', false, '1h',
-        'Prepare Meeting Agenda', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', true, '8h',
-        'Complete Coding Module', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', false, '2h',
-        'Research Software Tools', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', true, '4h',
-        'Finish Client Proposal Draft', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', false, '1h',
-        'Update Project Milestones', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', true, '2h',
-        'Organize Workspace', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', false, '2h', 'Draft Email Campaign',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', true, '2h',
-        'Brainstorming Session', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', false, '8h',
-        'Design Website Mockups', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-11', 'Update project documentation.', '17:00:00', '15:00:00', true, '2h', 'Update Project Docs', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', false, '2h', 'Plan Sprint Tasks', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', true, '2h', 'Review Timesheets', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', false, '2h',
-        'Research Industry Trends', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', true, '8h', 'Write Blog Content',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', false, '2h',
-        'Prepare Client Presentation', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', true, '2h', 'Analyze Traffic Data', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-18', 'Update social media profiles.', '15:00:00', '14:00:00', false, '1h', 'Update Social Media', 2,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-19', 'Backup project files.', '12:00:00', '11:00:00', true, '1h', 'Backup Files', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', false, '2h',
-        'Research Marketing Strategies', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', true, '3h', 'Create Q3 Budget Plan', 2,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-24', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 2,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-25', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-26', 'Test the new software update.', '16:00:00', '14:00:00', false, '2h', 'Test Software Update', 2,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-29', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-30', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-05-31', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 3, 1);
+        'Submit Weekly Report', 1, 1),
+       ('2024-05-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', false, '1h',
+        'Prepare Meeting Agenda', 2, 1),
+       ('2024-05-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', true, '8h',
+        'Complete Coding Module', 3, 1),
+       ('2024-05-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', false, '2h',
+        'Research Software Tools', 1, 1),
+       ('2024-05-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', true, '4h',
+        'Finish Client Proposal Draft', 2, 1),
+       ('2024-05-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', false, '1h',
+        'Update Project Milestones', 3, 1),
+       ('2024-05-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', true, '2h',
+        'Organize Workspace', 1, 1),
+       ('2024-05-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', false, '2h', 'Draft Email Campaign',
+        2, 1),
+       ('2024-05-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', true, '2h',
+        'Brainstorming Session', 3, 1),
+       ('2024-05-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', false, '8h',
+        'Design Website Mockups', 3, 1),
+       ('2024-05-11', 'Update project documentation.', '17:00:00', '15:00:00', true, '2h', 'Update Project Docs', 1,
+        1),
+       ('2024-05-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', false, '2h', 'Plan Sprint Tasks', 2, 1),
+       ('2024-05-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', true, '2h', 'Review Timesheets', 3, 1),
+       ('2024-05-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', false, '2h',
+        'Research Industry Trends', 1, 1),
+       ('2024-05-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', true, '8h', 'Write Blog Content',
+        2, 1),
+       ('2024-05-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', false, '2h',
+        'Prepare Client Presentation', 3, 1),
+       ('2024-05-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', true, '2h', 'Analyze Traffic Data', 1,
+        1),
+       ('2024-05-18', 'Update social media profiles.', '15:00:00', '14:00:00', false, '1h', 'Update Social Media', 2,
+        1),
+       ('2024-05-19', 'Backup project files.', '12:00:00', '11:00:00', true, '1h', 'Backup Files', 3, 1),
+       ('2024-05-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', false, '2h',
+        'Research Marketing Strategies', 1, 1),
+       ('2024-05-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', true, '3h', 'Create Q3 Budget Plan', 2,
+        1),
+       ('2024-05-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
+        'Draft Press Release', 3, 1),
+       ('2024-05-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
+        'Conduct Code Review', 2, 1),
+       ('2024-05-24', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 2,
+        1),
+       ('2024-05-25', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 1, 1),
+       ('2024-05-26', 'Test the new software update.', '16:00:00', '14:00:00', false, '2h', 'Test Software Update', 2,
+        1),
+       ('2024-05-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
+        'Draft Press Release', 2, 1),
+       ('2024-05-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
+        'Conduct Code Review', 3, 1),
+       ('2024-05-29', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
+        1),
+       ('2024-05-30', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1),
+       ('2024-05-31', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 3, 1);
 
 
 -- ####################
@@ -126,119 +68,60 @@ values ('2024-05-31', 'Update client contact list.', '13:00:00', '12:00:00', tru
 -- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
-        'Submit Weekly Report', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', false, '1h',
-        'Prepare Meeting Agenda', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', true, '8h',
-        'Complete Coding Module', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', false, '2h',
-        'Research Software Tools', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', true, '4h',
-        'Finish Client Proposal Draft', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', false, '1h',
-        'Update Project Milestones', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', true, '2h',
-        'Organize Workspace', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', false, '2h', 'Draft Email Campaign',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', true, '2h',
-        'Brainstorming Session', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', false, '8h',
-        'Design Website Mockups', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-11', 'Update project documentation.', '17:00:00', '15:00:00', true, '2h', 'Update Project Docs', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', false, '2h', 'Plan Sprint Tasks', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', true, '2h', 'Review Timesheets', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', false, '2h',
-        'Research Industry Trends', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', true, '8h', 'Write Blog Content',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', false, '2h',
-        'Prepare Client Presentation', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', true, '2h', 'Analyze Traffic Data', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-18', 'Update social media profiles.', '15:00:00', '14:00:00', false, '1h', 'Update Social Media', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-19', 'Backup project files.', '12:00:00', '11:00:00', true, '1h', 'Backup Files', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', false, '2h',
-        'Research Marketing Strategies', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', true, '3h', 'Create Q3 Budget Plan', 2,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-24', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-25', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-26', 'Test the new software update.', '16:00:00', '14:00:00', false, '2h', 'Test Software Update', 3,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-29', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-06-30', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
+values ('2024-06-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', TRUE, '2h',
+        'Submit Weekly Report', 1, 1),
+       ('2024-06-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', FALSE, '1h',
+        'Prepare Meeting Agenda', 2, 1),
+       ('2024-06-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', TRUE, '8h',
+        'Complete Coding Module', 3, 1),
+       ('2024-06-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Research Software Tools', 1, 1),
+       ('2024-06-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', TRUE, '4h',
+        'Finish Client Proposal Draft', 2, 1),
+       ('2024-06-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', FALSE, '1h',
+        'Update Project Milestones', 3, 1),
+       ('2024-06-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', TRUE, '2h',
+        'Organize Workspace', 1, 1),
+       ('2024-06-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', FALSE, '2h', 'Draft Email Campaign',
+        2, 1),
+       ('2024-06-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', TRUE, '2h',
+        'Brainstorming Session', 3, 1),
+       ('2024-06-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', FALSE, '8h',
+        'Design Website Mockups', 1, 1),
+       ('2024-06-11', 'Update project documentation.', '17:00:00', '15:00:00', TRUE, '2h', 'Update Project Docs', 1, 1),
+       ('2024-06-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', FALSE, '2h', 'Plan Sprint Tasks', 2, 1),
+       ('2024-06-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', TRUE, '2h', 'Review Timesheets', 3, 1),
+       ('2024-06-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Research Industry Trends', 1, 1),
+       ('2024-06-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', TRUE, '8h', 'Write Blog Content',
+        2, 1),
+       ('2024-06-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', FALSE, '2h',
+        'Prepare Client Presentation', 3, 1),
+       ('2024-06-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', TRUE, '2h', 'Analyze Traffic Data', 1,
+        1),
+       ('2024-06-18', 'Update social media profiles.', '15:00:00', '14:00:00', FALSE, '1h', 'Update Social Media', 1,
+        1),
+       ('2024-06-19', 'Backup project files.', '12:00:00', '11:00:00', TRUE, '1h', 'Backup Files', 1, 1),
+       ('2024-06-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Research Marketing Strategies', 2, 1),
+       ('2024-06-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', TRUE, '3h', 'Create Q3 Budget Plan', 2,
+        1),
+       ('2024-06-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Draft Press Release', 2, 1),
+       ('2024-06-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Conduct Code Review', 3, 1),
+       ('2024-06-24', 'Plan the team building activity.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Team Building', 1,
+        1),
+       ('2024-06-25', 'Update client contact list.', '13:00:00', '12:00:00', TRUE, '1h', 'Update Contact List', 2, 1),
+       ('2024-06-26', 'Test the new software update.', '16:00:00', '14:00:00', FALSE, '2h', 'Test Software Update', 3,
+        1),
+       ('2024-06-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Draft Press Release', 2, 1),
+       ('2024-06-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Conduct Code Review', 3, 1),
+       ('2024-06-29', 'Plan the team building activity.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Team Building', 1,
+        1),
+       ('2024-06-30', 'Update client contact list.', '13:00:00', '12:00:00', TRUE, '1h', 'Update Contact List', 2, 1);
 
 
 -- ####################
@@ -246,142 +129,216 @@ values ('2024-06-30', 'Update client contact list.', '13:00:00', '12:00:00', tru
 -- ###################
 
 insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', true, '2h',
-        'Submit Weekly Report', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', false, '1h',
-        'Prepare Meeting Agenda', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', true, '8h',
-        'Complete Coding Module', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', false, '2h',
-        'Research Software Tools', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', true, '4h',
-        'Finish Client Proposal Draft', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', false, '1h',
-        'Update Project Milestones', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', true, '2h',
-        'Organize Workspace', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', false, '2h', 'Draft Email Campaign',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', true, '2h',
-        'Brainstorming Session', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', false, '8h',
-        'Design Website Mockups', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-11', 'Update project documentation.', '17:00:00', '15:00:00', true, '2h', 'Update Project Docs', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', false, '2h', 'Plan Sprint Tasks', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', true, '2h', 'Review Timesheets', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', false, '2h',
-        'Research Industry Trends', 1, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', true, '8h', 'Write Blog Content',
-        2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', false, '2h',
-        'Prepare Client Presentation', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', true, '2h', 'Analyze Traffic Data', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-18', 'Update social media profiles.', '15:00:00', '14:00:00', false, '1h', 'Update Social Media', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-19', 'Backup project files.', '12:00:00', '11:00:00', true, '1h', 'Backup Files', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', false, '2h',
-        'Research Marketing Strategies', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', true, '3h', 'Create Q3 Budget Plan', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-24', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-25', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-26', 'Test the new software update.', '16:00:00', '14:00:00', false, '2h', 'Test Software Update', 3,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', false, '2h',
-        'Draft Press Release', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', true, '2h',
-        'Conduct Code Review', 3, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-29', 'Plan the team building activity.', '17:00:00', '15:00:00', false, '2h', 'Plan Team Building', 1,
-        1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-30', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 2, 1);
-
-insert into task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
-values ('2024-07-31', 'Update client contact list.', '13:00:00', '12:00:00', true, '1h', 'Update Contact List', 3, 1);
+values ('2024-06-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', TRUE, '2h',
+        'Submit Weekly Report', 1, 1),
+       ('2024-06-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', FALSE, '1h',
+        'Prepare Meeting Agenda', 2, 1),
+       ('2024-06-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', TRUE, '8h',
+        'Complete Coding Module', 3, 1),
+       ('2024-06-04', 'Research new software tools for project management.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Research Software Tools', 1, 1),
+       ('2024-06-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', TRUE, '4h',
+        'Finish Client Proposal Draft', 2, 1),
+       ('2024-06-06', 'Update the team on project milestones.', '16:00:00', '15:00:00', FALSE, '1h',
+        'Update Project Milestones', 3, 1),
+       ('2024-06-07', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', TRUE, '2h',
+        'Organize Workspace', 1, 1),
+       ('2024-06-08', 'Draft the email campaign for June.', '17:00:00', '15:00:00', FALSE, '2h', 'Draft Email Campaign',
+        2, 1),
+       ('2024-06-09', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', TRUE, '2h',
+        'Brainstorming Session', 3, 1),
+       ('2024-06-10', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', FALSE, '8h',
+        'Design Website Mockups', 1, 1),
+       ('2024-06-11', 'Update project documentation.', '17:00:00', '15:00:00', TRUE, '2h', 'Update Project Docs', 1, 1),
+       ('2024-06-12', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', FALSE, '2h', 'Plan Sprint Tasks', 2, 1),
+       ('2024-06-13', 'Review and approve timesheets.', '14:00:00', '12:00:00', TRUE, '2h', 'Review Timesheets', 3, 1),
+       ('2024-06-14', 'Research industry trends for Q2 report.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Research Industry Trends', 1, 1),
+       ('2024-06-15', 'Write content for the new blog post.', '18:00:00', '10:00:00', TRUE, '8h', 'Write Blog Content',
+        2, 1),
+       ('2024-06-16', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', FALSE, '2h',
+        'Prepare Client Presentation', 3, 1),
+       ('2024-06-17', 'Analyze website traffic data.', '13:00:00', '11:00:00', TRUE, '2h', 'Analyze Traffic Data', 1,
+        1),
+       ('2024-06-18', 'Update social media profiles.', '15:00:00', '14:00:00', FALSE, '1h', 'Update Social Media', 1,
+        1),
+       ('2024-06-19', 'Backup project files.', '12:00:00', '11:00:00', TRUE, '1h', 'Backup Files', 1, 1),
+       ('2024-06-20', 'Research new marketing strategies.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Research Marketing Strategies', 2, 1),
+       ('2024-06-21', 'Create a budget plan for Q3.', '17:00:00', '14:00:00', TRUE, '3h', 'Create Q3 Budget Plan', 2,
+        1),
+       ('2024-06-22', 'Draft press release for new product launch.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Draft Press Release', 2, 1),
+       ('2024-06-23', 'Conduct code review for team members.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Conduct Code Review', 3, 1),
+       ('2024-06-24', 'Plan the team building activity.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Team Building', 1,
+        1),
+       ('2024-06-25', 'Update client contact list.', '13:00:00', '12:00:00', TRUE, '1h', 'Update Contact List', 2, 1),
+       ('2024-06-26', 'Test the new software update.', '16:00:00', '14:00:00', FALSE, '2h', 'Test Software Update', 3,
+        1),
+       ('2024-06-27', 'Draft press release for new product launch.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Draft Press Release', 2, 1),
+       ('2024-06-28', 'Conduct code review for team members.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Conduct Code Review', 3, 1),
+       ('2024-06-29', 'Plan the team building activity.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Team Building', 1,
+        1),
+       ('2024-06-30', 'Update client contact list.', '13:00:00', '12:00:00', TRUE, '1h', 'Update Contact List', 2, 1);
 
 
 INSERT INTO task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
+VALUES ('2024-06-12', 'Planear las tareas del próximo sprint.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Planear Tareas del Sprint', 2, 1),
+       ('2024-06-13', 'Revisar y aprobar hojas de tiempo.', '14:00:00', '12:00:00', TRUE, '2h',
+        'Revisar Hojas de Tiempo', 3, 1),
+       ('2024-06-14', 'Investigar tendencias de la industria para el informe del segundo trimestre.', '17:00:00',
+        '15:00:00', FALSE, '2h', 'Investigar Tendencias Industriales', 1, 1),
+       ('2024-06-15', 'Escribir contenido para la nueva publicación de blog.', '18:00:00', '10:00:00', TRUE, '8h',
+        'Escribir Contenido de Blog', 2, 1),
+       ('2024-06-16', 'Preparar presentación para reunión con cliente.', '16:00:00', '14:00:00', FALSE, '2h',
+        'Preparar Presentación para Cliente', 3, 1),
+       ('2024-06-17', 'Analizar datos de tráfico del sitio web.', '13:00:00', '11:00:00', TRUE, '2h',
+        'Analizar Datos de Tráfico', 1, 1),
+       ('2024-06-18', 'Actualizar perfiles en redes sociales.', '15:00:00', '14:00:00', FALSE, '1h',
+        'Actualizar Redes Sociales', 1, 1),
+       ('2024-06-19', 'Hacer copia de seguridad de archivos del proyecto.', '12:00:00', '11:00:00', TRUE, '1h',
+        'Copia de Seguridad de Archivos', 1, 1),
+       ('2024-06-20', 'Investigar nuevas estrategias de marketing.', '18:00:00', '16:00:00', FALSE, '2h',
+        'Investigar Estrategias de Marketing', 2, 1),
+       ('2024-06-21', 'Crear un plan de presupuesto para el tercer trimestre.', '17:00:00', '14:00:00', TRUE, '3h',
+        'Crear Plan de Presupuesto Q3', 2, 1),
+       ('2024-06-22', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00',
+        FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
+       ('2024-06-23', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Realizar Revisión de Código', 3, 1),
+       ('2024-06-24', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Planificar Actividad de Construcción de Equipo', 1, 1),
+       ('2024-06-25', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h',
+        'Actualizar Lista de Contactos', 2, 1),
+       ('2024-06-26', 'Probar la nueva actualización de software.', '16:00:00', '14:00:00', FALSE, '2h',
+        'Probar Actualización de Software', 3, 1),
+       ('2024-06-27', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00',
+        FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
+       ('2024-06-28', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h',
+        'Realizar Revisión de Código', 3, 1),
+       ('2024-06-29', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h',
+        'Planificar Actividad de Construcción de Equipo', 1, 1),
+       ('2024-06-30', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h',
+        'Actualizar Lista de Contactos', 2, 1);
+
+-- Insert multiple rows into task table spanning multiple months
+INSERT INTO task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
 VALUES
-    ('2024-06-12', 'Planear las tareas del próximo sprint.', '18:00:00', '16:00:00', FALSE, '2h', 'Planear Tareas del Sprint', 2, 1),
-    ('2024-06-13', 'Revisar y aprobar hojas de tiempo.', '14:00:00', '12:00:00', TRUE, '2h', 'Revisar Hojas de Tiempo', 3, 1),
-    ('2024-06-14', 'Investigar tendencias de la industria para el informe del segundo trimestre.', '17:00:00', '15:00:00', FALSE, '2h', 'Investigar Tendencias Industriales', 1, 1),
-    ('2024-06-15', 'Escribir contenido para la nueva publicación de blog.', '18:00:00', '10:00:00', TRUE, '8h', 'Escribir Contenido de Blog', 2, 1),
-    ('2024-06-16', 'Preparar presentación para reunión con cliente.', '16:00:00', '14:00:00', FALSE, '2h', 'Preparar Presentación para Cliente', 3, 1),
-    ('2024-06-17', 'Analizar datos de tráfico del sitio web.', '13:00:00', '11:00:00', TRUE, '2h', 'Analizar Datos de Tráfico', 1, 1),
-    ('2024-06-18', 'Actualizar perfiles en redes sociales.', '15:00:00', '14:00:00', FALSE, '1h', 'Actualizar Redes Sociales', 1, 1),
-    ('2024-06-19', 'Hacer copia de seguridad de archivos del proyecto.', '12:00:00', '11:00:00', TRUE, '1h', 'Copia de Seguridad de Archivos', 1, 1),
-    ('2024-06-20', 'Investigar nuevas estrategias de marketing.', '18:00:00', '16:00:00', FALSE, '2h', 'Investigar Estrategias de Marketing', 2, 1),
-    ('2024-06-21', 'Crear un plan de presupuesto para el tercer trimestre.', '17:00:00', '14:00:00', TRUE, '3h', 'Crear Plan de Presupuesto Q3', 2, 1),
-    ('2024-06-22', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00', FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
-    ('2024-06-23', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h', 'Realizar Revisión de Código', 3, 1),
-    ('2024-06-24', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h', 'Planificar Actividad de Construcción de Equipo', 1, 1),
-    ('2024-06-25', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h', 'Actualizar Lista de Contactos', 2, 1),
-    ('2024-06-26', 'Probar la nueva actualización de software.', '16:00:00', '14:00:00', FALSE, '2h', 'Probar Actualización de Software', 3, 1),
-    ('2024-06-27', 'Redactar comunicado de prensa para el lanzamiento del nuevo producto.', '18:00:00', '16:00:00', FALSE, '2h', 'Redactar Comunicado de Prensa', 2, 1),
-    ('2024-06-28', 'Realizar revisión de código para miembros del equipo.', '15:00:00', '13:00:00', TRUE, '2h', 'Realizar Revisión de Código', 3, 1),
-    ('2024-06-29', 'Planificar actividad de construcción de equipo.', '17:00:00', '15:00:00', FALSE, '2h', 'Planificar Actividad de Construcción de Equipo', 1, 1),
-    ('2024-06-30', 'Actualizar lista de contactos de clientes.', '13:00:00', '12:00:00', TRUE, '1h', 'Actualizar Lista de Contactos', 2, 1);
+    ('2024-01-05', 'Prepare the Q1 report.', '14:00:00', '12:00:00', FALSE, '2h', 'Prepare Q1 Report', 1, 1),
+    ('2024-01-10', 'Review project proposals.', '16:00:00', '14:00:00', TRUE, '2h', 'Review Proposals', 2, 1),
+    ('2024-01-15', 'Update project roadmap.', '17:00:00', '15:00:00', FALSE, '2h', 'Update Roadmap', 3, 1),
+    ('2024-02-01', 'Conduct team performance reviews.', '13:00:00', '11:00:00', TRUE, '2h', 'Performance Reviews', 1, 1),
+    ('2024-02-05', 'Plan marketing campaign for product launch.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Marketing Campaign', 2, 1),
+    ('2024-02-10', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', TRUE, '2h', 'Organize Workspace', 3, 1),
+    ('2024-03-01', 'Prepare presentation for annual meeting.', '16:00:00', '14:00:00', FALSE, '2h', 'Prepare Annual Presentation', 1, 1),
+    ('2024-03-05', 'Research industry trends.', '18:00:00', '16:00:00', TRUE, '2h', 'Research Trends', 2, 1),
+    ('2024-03-10', 'Draft press release for product update.', '17:00:00', '15:00:00', FALSE, '2h', 'Draft Press Release', 3, 1),
+    ('2024-04-01', 'Plan the Q2 roadmap.', '14:00:00', '12:00:00', TRUE, '2h', 'Plan Q2 Roadmap', 1, 1),
+    ('2024-04-05', 'Update project documentation.', '17:00:00', '15:00:00', FALSE, '2h', 'Update Documentation', 2, 1),
+    ('2024-04-10', 'Complete code review for module Y.', '18:00:00', '16:00:00', TRUE, '2h', 'Code Review Module Y', 3, 1),
+    ('2024-05-01', 'Prepare for the client demo.', '13:00:00', '11:00:00', FALSE, '2h', 'Prepare Client Demo', 1, 1),
+    ('2024-05-05', 'Analyze customer feedback.', '17:00:00', '15:00:00', TRUE, '2h', 'Analyze Feedback', 2, 1),
+    ('2024-05-10', 'Draft the Q3 budget plan.', '14:00:00', '12:00:00', FALSE, '2h', 'Draft Q3 Budget', 3, 1),
+    ('2024-06-01', 'Submit weekly report to the manager.', '17:00:00', '15:00:00', TRUE, '2h', 'Submit Weekly Report', 1, 1),
+    ('2024-06-02', 'Prepare agenda for the team meeting.', '12:00:00', '11:00:00', FALSE, '1h', 'Prepare Meeting Agenda', 2, 1),
+    ('2024-06-03', 'Complete coding module for project X.', '18:00:00', '10:00:00', TRUE, '8h', 'Complete Coding Module', 3, 1),
+    ('2024-07-01', 'Research new software tools for project management.', '17:00:00', '15:00:00', FALSE, '2h', 'Research Software Tools', 1, 1),
+    ('2024-07-05', 'Finish the draft for the new client proposal.', '14:00:00', '10:00:00', TRUE, '4h', 'Finish Client Proposal Draft', 2, 1),
+    ('2024-07-10', 'Update the team on project milestones.', '16:00:00', '15:00:00', FALSE, '1h', 'Update Project Milestones', 3, 1),
+    ('2024-08-01', 'Organize files and clean up the workspace.', '13:00:00', '11:00:00', TRUE, '2h', 'Organize Workspace', 1, 1),
+    ('2024-08-05', 'Draft the email campaign for August.', '17:00:00', '15:00:00', FALSE, '2h', 'Draft Email Campaign', 2, 1),
+    ('2024-08-10', 'Hold a brainstorming session with the team.', '12:00:00', '10:00:00', TRUE, '2h', 'Brainstorming Session', 3, 1),
+    ('2024-09-01', 'Complete design mockups for the website update.', '18:00:00', '10:00:00', FALSE, '8h', 'Design Website Mockups', 1, 1),
+    ('2024-09-05', 'Update project documentation.', '17:00:00', '15:00:00', TRUE, '2h', 'Update Project Docs', 2, 1),
+    ('2024-09-10', 'Plan the next sprint tasks.', '18:00:00', '16:00:00', FALSE, '2h', 'Plan Sprint Tasks', 3, 1),
+    ('2024-10-01', 'Review and approve timesheets.', '14:00:00', '12:00:00', TRUE, '2h', 'Review Timesheets', 1, 1),
+    ('2024-10-05', 'Research industry trends for Q4 report.', '17:00:00', '15:00:00', FALSE, '2h', 'Research Industry Trends', 2, 1),
+    ('2024-10-10', 'Write content for the new blog post.', '18:00:00', '10:00:00', TRUE, '8h', 'Write Blog Content', 3, 1),
+    ('2024-11-01', 'Prepare presentation for client meeting.', '16:00:00', '14:00:00', FALSE, '2h', 'Prepare Client Presentation', 1, 1),
+    ('2024-11-05', 'Analyze website traffic data.', '13:00:00', '11:00:00', TRUE, '2h', 'Analyze Traffic Data', 2, 1),
+    ('2024-11-10', 'Update social media profiles.', '15:00:00', '14:00:00', FALSE, '1h', 'Update Social Media', 3, 1),
+    ('2024-12-01', 'Backup project files.', '12:00:00', '11:00:00', TRUE, '1h', 'Backup Files', 1, 1),
+    ('2024-12-05', 'Research new marketing strategies.', '18:00:00', '16:00:00', FALSE, '2h', 'Research Marketing Strategies', 2, 1),
+    ('2024-12-10', 'Create a budget plan for Q1 2025.', '17:00:00', '14:00:00', TRUE, '3h', 'Create Q1 2025 Budget Plan', 3, 1),
+    ('2024-12-15', 'Draft press release for new product launch.', '18:00:00', '16:00:00', FALSE, '2h', 'Draft Press Release', 2, 1),
+    ('2024-12-20', 'Conduct code review for team members.', '15:00:00', '13:00:00', TRUE, '2h', 'Conduct Code Review', 3, 1);
+
+
+-- Insert multiple rows into task table spanning multiple months
+INSERT INTO task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
+VALUES
+    ('2024-01-03', 'Review financial statements.', '16:00:00', '14:00:00', FALSE, '2h', 'Review Financials', 1, 1),
+    ('2024-01-12', 'Schedule quarterly meeting.', '12:00:00', '10:00:00', TRUE, '2h', 'Schedule Meeting', 2, 1),
+    ('2024-01-23', 'Update software version.', '18:00:00', '15:00:00', FALSE, '3h', 'Update Software', 3, 1),
+    ('2024-02-02', 'Prepare marketing materials.', '14:00:00', '12:00:00', TRUE, '2h', 'Prepare Marketing', 1, 1),
+    ('2024-02-14', 'Client follow-up call.', '17:00:00', '15:00:00', FALSE, '2h', 'Client Call', 2, 1),
+    ('2024-02-25', 'Team training session.', '15:00:00', '13:00:00', TRUE, '2h', 'Training Session', 3, 1),
+    ('2024-03-03', 'Finalize project timeline.', '16:00:00', '14:00:00', FALSE, '2h', 'Finalize Timeline', 1, 1),
+    ('2024-03-14', 'Conduct user feedback survey.', '11:00:00', '09:00:00', TRUE, '2h', 'Feedback Survey', 2, 1),
+    ('2024-03-26', 'Draft quarterly newsletter.', '18:00:00', '16:00:00', FALSE, '2h', 'Draft Newsletter', 3, 1),
+    ('2024-04-05', 'Review legal documents.', '12:00:00', '10:00:00', TRUE, '2h', 'Review Legal Docs', 1, 1),
+    ('2024-04-17', 'Plan company retreat.', '14:00:00', '12:00:00', FALSE, '2h', 'Plan Retreat', 2, 1),
+    ('2024-04-28', 'Update website content.', '17:00:00', '15:00:00', TRUE, '2h', 'Update Website', 3, 1),
+    ('2024-05-02', 'Organize team lunch.', '13:00:00', '11:00:00', FALSE, '2h', 'Organize Lunch', 1, 1),
+    ('2024-05-12', 'Prepare Q3 budget.', '16:00:00', '14:00:00', TRUE, '2h', 'Prepare Budget', 2, 1),
+    ('2024-05-24', 'Client project review.', '18:00:00', '15:00:00', FALSE, '3h', 'Client Review', 3, 1),
+    ('2024-06-03', 'Plan social media strategy.', '17:00:00', '15:00:00', TRUE, '2h', 'Social Media Strategy', 1, 1),
+    ('2024-06-14', 'Conduct market analysis.', '13:00:00', '11:00:00', FALSE, '2h', 'Market Analysis', 2, 1),
+    ('2024-06-25', 'Organize files and clean up the workspace.', '11:00:00', '09:00:00', TRUE, '2h', 'Organize Workspace', 3, 1),
+    ('2024-07-05', 'Update team on new policies.', '14:00:00', '12:00:00', FALSE, '2h', 'Update Policies', 1, 1),
+    ('2024-07-16', 'Client satisfaction survey.', '17:00:00', '15:00:00', TRUE, '2h', 'Client Survey', 2, 1),
+    ('2024-07-28', 'Prepare end-of-year report.', '16:00:00', '14:00:00', FALSE, '2h', 'Prepare EOY Report', 3, 1),
+    ('2024-08-06', 'Finalize new hire training.', '12:00:00', '10:00:00', TRUE, '2h', 'New Hire Training', 1, 1),
+    ('2024-08-18', 'Plan product launch event.', '13:00:00', '11:00:00', FALSE, '2h', 'Plan Launch Event', 2, 1),
+    ('2024-08-29', 'Update client database.', '15:00:00', '13:00:00', TRUE, '2h', 'Update Database', 3, 1),
+    ('2024-09-05', 'Schedule performance reviews.', '14:00:00', '12:00:00', FALSE, '2h', 'Schedule Reviews', 1, 1),
+    ('2024-09-17', 'Prepare Q4 marketing strategy.', '17:00:00', '15:00:00', TRUE, '2h', 'Prepare Q4 Strategy', 2, 1),
+    ('2024-09-28', 'Conduct team building activity.', '16:00:00', '14:00:00', FALSE, '2h', 'Team Building', 3, 1),
+    ('2024-10-05', 'Review quarterly financials.', '12:00:00', '10:00:00', TRUE, '2h', 'Review Financials', 1, 1),
+    ('2024-10-15', 'Draft new policy document.', '14:00:00', '12:00:00', FALSE, '2h', 'Draft Policy', 2, 1),
+    ('2024-10-25', 'Update project timeline.', '17:00:00', '15:00:00', TRUE, '2h', 'Update Timeline', 3, 1),
+    ('2024-11-02', 'Organize client meeting.', '13:00:00', '11:00:00', FALSE, '2h', 'Organize Meeting', 1, 1),
+    ('2024-11-14', 'Analyze sales data.', '15:00:00', '13:00:00', TRUE, '2h', 'Analyze Sales', 2, 1),
+    ('2024-11-26', 'Prepare for board meeting.', '18:00:00', '16:00:00', FALSE, '2h', 'Board Meeting Prep', 3, 1),
+    ('2024-12-04', 'Conduct end-of-year performance reviews.', '14:00:00', '12:00:00', TRUE, '2h', 'EOY Performance Reviews', 1, 1),
+    ('2024-12-16', 'Plan holiday event.', '17:00:00', '15:00:00', FALSE, '2h', 'Plan Holiday Event', 2, 1),
+    ('2024-12-28', 'Update marketing materials for Q1.', '16:00:00', '14:00:00', TRUE, '2h', 'Update Marketing Materials', 3, 1);
+
+
+-- Insert multiple rows into task table with task_done = TRUE spanning multiple months
+INSERT INTO task (dead_line, description, ending_time, start_time, task_done, task_duration, title, tag_id, owner_id)
+VALUES
+    ('2024-01-05', 'Finalize annual budget.', '14:00:00', '12:00:00', TRUE, '2h', 'Finalize Budget', 1, 1),
+    ('2024-01-15', 'Review Q1 marketing plan.', '16:00:00', '14:00:00', TRUE, '2h', 'Review Marketing Plan', 2, 1),
+    ('2024-01-25', 'Conduct team performance review.', '18:00:00', '16:00:00', TRUE, '2h', 'Team Performance Review', 3, 1),
+    ('2024-02-05', 'Update project roadmap.', '12:00:00', '10:00:00', TRUE, '2h', 'Update Roadmap', 1, 1),
+    ('2024-02-18', 'Complete client feedback analysis.', '15:00:00', '13:00:00', TRUE, '2h', 'Client Feedback Analysis', 2, 1),
+    ('2024-02-28', 'Prepare for board meeting.', '17:00:00', '15:00:00', TRUE, '2h', 'Board Meeting Prep', 3, 1),
+    ('2024-03-10', 'Draft quarterly report.', '14:00:00', '12:00:00', TRUE, '2h', 'Draft Quarterly Report', 1, 1),
+    ('2024-03-20', 'Conduct market research.', '16:00:00', '14:00:00', TRUE, '2h', 'Market Research', 2, 1),
+    ('2024-03-30', 'Finalize new hire training materials.', '15:00:00', '13:00:00', TRUE, '2h', 'Finalize Training Materials', 3, 1),
+    ('2024-04-05', 'Review and sign vendor contracts.', '17:00:00', '15:00:00', TRUE, '2h', 'Review Vendor Contracts', 1, 1),
+    ('2024-04-15', 'Complete website redesign.', '18:00:00', '16:00:00', TRUE, '2h', 'Complete Website Redesign', 2, 1),
+    ('2024-04-25', 'Submit Q1 tax filings.', '14:00:00', '12:00:00', TRUE, '2h', 'Submit Q1 Tax Filings', 3, 1),
+    ('2024-05-05', 'Organize company town hall meeting.', '16:00:00', '14:00:00', TRUE, '2h', 'Organize Town Hall Meeting', 1, 1),
+    ('2024-05-15', 'Launch new marketing campaign.', '18:00:00', '16:00:00', TRUE, '2h', 'Launch Marketing Campaign', 2, 1),
+    ('2024-05-25', 'Evaluate performance of new software.', '17:00:00', '15:00:00', TRUE, '2h', 'Evaluate New Software', 3, 1),
+    ('2024-06-05', 'Draft mid-year review report.', '13:00:00', '11:00:00', TRUE, '2h', 'Mid-Year Review Report', 1, 1),
+    ('2024-06-15', 'Conduct employee satisfaction survey.', '14:00:00', '12:00:00', TRUE, '2h', 'Employee Satisfaction Survey', 2, 1),
+    ('2024-06-25', 'Update company handbook.', '16:00:00', '14:00:00', TRUE, '2h', 'Update Company Handbook', 3, 1),
+    ('2024-07-05', 'Complete Q2 financial review.', '17:00:00', '15:00:00', TRUE, '2h', 'Complete Q2 Financial Review', 1, 1),
+    ('2024-07-15', 'Finalize new product features.', '18:00:00', '16:00:00', TRUE, '2h', 'Finalize Product Features', 2, 1),
+    ('2024-07-25', 'Prepare for summer intern program.', '15:00:00', '13:00:00', TRUE, '2h', 'Summer Intern Program Prep', 3, 1),
+    ('2024-08-05', 'Review customer service policies.', '16:00:00', '14:00:00', TRUE, '2h', 'Review Customer Policies', 1, 1),
+    ('2024-08-15', 'Plan Q3 strategy meeting.', '18:00:00', '16:00:00', TRUE, '2h', 'Plan Q3 Strategy Meeting', 2, 1),
+    ('2024-08-25', 'Conduct IT infrastructure audit.', '17:00:00', '15:00:00', TRUE, '2h', 'IT Infrastructure Audit', 3, 1),
+    ('2024-09-05', 'Update security protocols.', '14:00:00', '12:00:00', TRUE, '2h', 'Update Security Protocols', 1, 1),
+    ('2024-09-15', 'Finalize Q3 marketing plan.', '16:00:00', '14:00:00', TRUE, '2h', 'Finalize Q3 Marketing Plan', 2, 1),
+    ('2024-09-25', 'Submit quarterly compliance report.', '18:00:00', '16:00:00', TRUE, '2h', 'Submit Compliance Report', 3, 1),
+    ('2024-10-05', 'Prepare for annual performance reviews.', '17:00:00', '15:00:00', TRUE, '2h', 'Annual Performance Reviews Prep', 1, 1),
+    ('2024-10-15', 'Review and update emergency plans.', '18:00:00', '16:00:00', TRUE, '2h', 'Update Emergency Plans', 2, 1),
+    ('2024-10-25', 'Plan Q4 goals and objectives.', '14:00:00', '12:00:00', TRUE, '2h', 'Plan Q4 Goals', 3, 1);
