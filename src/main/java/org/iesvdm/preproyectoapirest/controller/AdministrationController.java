@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("https://tiny-task-v1.vercel.app")
 @RequestMapping("/v1/api/admin")
 public class AdministrationController {
 
