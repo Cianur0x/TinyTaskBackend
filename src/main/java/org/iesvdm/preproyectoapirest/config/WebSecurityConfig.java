@@ -70,7 +70,7 @@ public class WebSecurityConfig {
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/v1/api/auth/**").permitAll()
-                        .requestMatchers("/v1/api/**").permitAll()
+                        .requestMatchers("/v1/api/**").hasAnyAuthority("ROL_ADMIN", "ROL_USER")
                         .requestMatchers("/v1/api/admin/**").hasAnyAuthority("ROL_ADMIN")
                         .requestMatchers("/v1/api/prueba/solo-admin").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()
