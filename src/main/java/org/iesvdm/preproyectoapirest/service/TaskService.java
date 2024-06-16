@@ -124,11 +124,19 @@ public class TaskService {
 
     public List<UserDTO> addViewerstoTask(List<UserDTO> viewersAdded, Long taskID) {
         Task currentTask = one(taskID);
+        currentTask.getViewers().forEach(user -> {
+                    user.getViewedTasks().remove(currentTask);
+                    this.userRepository.save(user);
+                }
+        );
+        this.taskRepository.save(currentTask);
+
         viewersAdded.forEach(userDTO -> {
             User user = this.userRepository.findById(userDTO.getId())
                     .orElseThrow(() -> new EntityNotFoundException(userDTO.getId(), User.class));
             user.getViewedTasks().add(currentTask);
             this.userRepository.save(user);
+
             currentTask.getViewers().add(user);
             this.taskRepository.save(currentTask);
         });
@@ -156,6 +164,8 @@ public class TaskService {
 
     public void delete(Long id) {
         this.taskRepository.findById(id).map(p -> {
+            p.getViewers().forEach(user -> user.getViewedTasks().remove(p));
+            this.taskRepository.save(p);
             this.taskRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Task.class));

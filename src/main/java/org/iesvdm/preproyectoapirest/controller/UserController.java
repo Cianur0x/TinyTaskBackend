@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friendList",})
-    public UserDTO addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
+    public ResponseEntity<?> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
                                    @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
 
@@ -119,5 +119,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Long id) {
         this.userService.delete(id);
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{myid}/{friendid}")
+    public void deleteUser(@PathVariable("friendid") Long id, @PathVariable("myid") Long myId ) {
+        this.userService.deleteFriend(myId, id  );
     }
 }

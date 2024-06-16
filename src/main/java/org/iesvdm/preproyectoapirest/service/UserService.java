@@ -62,23 +62,32 @@ public class UserService {
         return null;
     }
 
-    public UserDTO addUserToFriendList(Optional<String> findOpt, Long idUser) {
-        User userToFriend = this.findByUsername(findOpt);
-        User currentUser = this.one(idUser);
+    public ResponseEntity<?> addUserToFriendList(Optional<String> findOpt, Long idUser) {
+        if (findOpt.isPresent()) {
+            Optional<User> optionalUser = this.userRepository.findByUsername(findOpt.get());
 
-        if (!currentUser.equals(userToFriend)) {
-            Set<User> setFriends = currentUser.getFriendList();
+            if (optionalUser.isPresent()) {
+                User currentUser = this.one(idUser);
+                User userToFriend = optionalUser.get();
 
-            boolean friendExists = currentUser.getFriendList().stream().anyMatch(user -> user.getUsername().equals(userToFriend.getUsername()));
-            if (!friendExists) {
-                setFriends.add(userToFriend);
-                this.userRepository.save(currentUser);
+                if (!currentUser.equals(userToFriend)) {
+                    Set<User> setFriends = currentUser.getFriendList();
 
-                return userMapper.userToUserDTO(userToFriend);
+                    boolean friendExists = currentUser.getFriendList().stream().anyMatch(user -> user.getUsername().equals(userToFriend.getUsername()));
+                    if (!friendExists) {
+                        setFriends.add(userToFriend);
+                        this.userRepository.save(currentUser);
+
+                        UserDTO userDTO = userMapper.userToUserDTO(userToFriend);
+                        return ResponseEntity.ok(userDTO);
+                    }
+
+                    return ResponseEntity.badRequest().body(new MessageResponse("Friend already exists"));
+                }
             }
         }
 
-        return null;
+        return ResponseEntity.badRequest().body(new MessageResponse("User not found"));
     }
 
     public List<UserDTO> getFriendList(Long idUser) {
@@ -137,6 +146,17 @@ public class UserService {
             this.userRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, User.class));
+    }
+
+    public void deleteFriend(Long myId, Long friend) {
+        this.userRepository.findById(myId).map(p -> {
+            this.userRepository.findById(friend).map(user -> {
+                p.getFriendList().remove(user);
+                this.userRepository.save(p);
+               return null;
+            });
+            return p;
+        }).orElseThrow(() -> new EntityNotFoundException(myId, User.class));
     }
 
     public ResponseEntity<?> editUser(EditUserDTO userUpdate) {
