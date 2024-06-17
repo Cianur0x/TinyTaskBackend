@@ -190,9 +190,29 @@ public class TaskService {
     }
 
     public Task replace(Long id, Task task) {
-        return this.taskRepository.findById(id)
-                .map(p -> (id.equals(task.getId()) ? this.taskRepository.save(task) : null))
-                .orElseThrow(() -> new EntityNotFoundException(id, Task.class));
+        Optional<Task> taskOptional = this.taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            Task taskToReplace = taskOptional.get();
+
+            taskToReplace.getViewers().forEach(user -> { // se cambia la relacion EN USUARIOS
+                user.getViewedTasks().remove(taskToReplace);
+                this.userRepository.save(user);
+                this.taskRepository.save(taskToReplace);
+            });
+
+            Set<User> users = new HashSet<>();
+            task.getWatchers().forEach(user -> {
+                User u = this.userMapper.userDTOAUser(user);
+                users.add(u);
+            });
+
+            task.setViewers(users);
+
+            this.taskRepository.save(task);
+            return task;
+        }
+
+        return null;
     }
 
     public void delete(Long id) {

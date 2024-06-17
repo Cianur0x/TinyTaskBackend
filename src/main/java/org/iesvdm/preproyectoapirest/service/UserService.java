@@ -9,6 +9,7 @@ import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.mapper.EditUserMapper;
 import org.iesvdm.preproyectoapirest.mapper.UserMapper;
+import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,12 +25,14 @@ import java.util.*;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final TaskRepository taskRepository;
     private final EditUserMapper editUserMapper;
     private final UserMapper userMapper;
     private final PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, EditUserMapper editUserMapper, PasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, TaskRepository taskRepository, UserMapper userMapper, EditUserMapper editUserMapper, PasswordEncoder encoder) {
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
         this.editUserMapper = editUserMapper;
         this.userMapper = userMapper;
         this.encoder = encoder;
@@ -143,11 +146,26 @@ public class UserService {
 
     public void delete(Long id) {
         this.userRepository.findById(id).map(p -> {
+
+            p.getViewedTasks().forEach(task -> {
+                task.getViewers().remove(p);
+                this.taskRepository.save(task);
+            });
+
             Set<User> users = this.userRepository.findFriendsByUserIdOrFriendId(id);
             users.forEach(user -> {
                 user.getFriendList().remove(p);
                 this.userRepository.save(user);
             });
+
+            p.getTareasCreadas().forEach(task -> {
+                task.getViewers().forEach(user -> {
+                    user.getViewedTasks().remove(task);
+                    this.userRepository.save(user);
+                });
+                this.taskRepository.save(task);
+            });
+
             this.userRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, User.class));
