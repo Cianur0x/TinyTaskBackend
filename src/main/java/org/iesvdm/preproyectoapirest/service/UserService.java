@@ -143,6 +143,11 @@ public class UserService {
 
     public void delete(Long id) {
         this.userRepository.findById(id).map(p -> {
+            Set<User> users = this.userRepository.findFriendsByUserIdOrFriendId(id);
+            users.forEach(user -> {
+                user.getFriendList().remove(p);
+                this.userRepository.save(user);
+            });
             this.userRepository.delete(p);
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, User.class));
@@ -153,7 +158,7 @@ public class UserService {
             this.userRepository.findById(friend).map(user -> {
                 p.getFriendList().remove(user);
                 this.userRepository.save(p);
-               return null;
+                return null;
             });
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(myId, User.class));
