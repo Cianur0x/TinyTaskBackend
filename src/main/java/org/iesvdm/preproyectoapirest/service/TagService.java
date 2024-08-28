@@ -12,7 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static org.iesvdm.preproyectoapirest.service.TaskService.getCounts;
 
 @Service
 public class TagService {
@@ -117,4 +121,51 @@ public class TagService {
             return p;
         }).orElseThrow(() -> new EntityNotFoundException(id, Tag.class));
     }
+
+    public Map<String, Map<Integer, Long>> getTaskTagMap(String startDate, String endDate, Long userId, Long taskId) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date start;
+        Date end;
+        try {
+            start = formatter.parse(startDate);
+            end = formatter.parse(endDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<Object[]> results = tagRepository.findMonthlyTaskCountByTag(userId, start, end, taskId);
+
+        return getCounts(results);
+    }
+
+
+    public Map<Long, Long> tasksGroupByTagIdAndYear(String startDate, String endDate, Long userId) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date start;
+        Date end;
+        try {
+            start = formatter.parse(startDate);
+            end = formatter.parse(endDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<Object[]> results = tagRepository.tasksGroupByTagId(userId, start, end);
+
+        return getTaskGroupByTagId(results);
+    }
+
+    static Map<Long, Long> getTaskGroupByTagId(List<Object[]> results) {
+        Map<Long, Long> tasksGrouped = new HashMap<>();
+
+        for (Object[] result : results) {
+            Long tagId = (Long) result[0];
+            Long totalTask = (Long) result[1];
+
+            tasksGrouped.put(tagId, totalTask);
+        }
+
+        return tasksGrouped;
+    }
+
 }

@@ -3,6 +3,7 @@ package org.iesvdm.preproyectoapirest.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.iesvdm.preproyectoapirest.domain.MessageResponse;
+import org.iesvdm.preproyectoapirest.domain.Task;
 import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.dto.EditUserDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
@@ -172,14 +173,28 @@ public class UserService {
     }
 
     public void deleteFriend(Long myId, Long friend) {
-        this.userRepository.findById(myId).map(p -> {
-            this.userRepository.findById(friend).map(user -> {
-                p.getFriendList().remove(user);
-                this.userRepository.save(p);
-                return null;
+        Optional<User> optionalMyUser = this.userRepository.findById(myId);
+        Optional<User> optionalMyFriend = this.userRepository.findById(friend);
+
+        List<Task> tasks = new ArrayList<>();
+
+        if (optionalMyUser.isPresent() && optionalMyFriend.isPresent()) {
+            User myUser = optionalMyUser.get();
+            User friendUser = optionalMyFriend.get();
+            myUser.getFriendList().remove(friendUser);
+
+            friendUser.getViewedTasks().forEach(task -> {
+                if (task.getUser().getId().equals(myId)) {
+                    tasks.add(task);
+                }
             });
-            return p;
-        }).orElseThrow(() -> new EntityNotFoundException(myId, User.class));
+
+            tasks.forEach(friendUser.getViewedTasks()::remove);
+            this.userRepository.save(friendUser);
+            this.userRepository.save(myUser);
+        } else {
+            throw new EntityNotFoundException(myId, User.class);
+        }
     }
 
     public ResponseEntity<?> editUser(EditUserDTO userUpdate) {

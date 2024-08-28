@@ -42,24 +42,6 @@ class PreproyectoApiRestApplicationTests {
         Set<Role> roleSet2 = new HashSet<>();
         roleSet2.add(role2);
 
-//        User user1 = User.builder()
-//                .username("Caiasdanurozx3")
-//                .password(encoder.encode("luffy1"))
-//                .email("Ca11asdianauro2zxzx@gmail.com")
-//                .lastConnection(new Date(2019 - 1900, 1, 29))
-//                .roles(roleSet)
-//                .build();
-//        userRepository.save(user1);
-//
-//        User user2 = User.builder()
-//                .username("Hai12dro123")
-//                .password(encoder.encode("water2"))
-//                .email("Hai11adrzxo@gmail.com")
-//                .lastConnection(new Date(2019 - 1900, 1, 29))
-//                .roles(roleSet2)
-//                .build();
-//        userRepository.save(user2);
-
         User user1 = User.builder()
                 .username("Cianuro")
                 .password(encoder.encode("luffy1"))

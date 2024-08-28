@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size", "!friendList",})
     public ResponseEntity<?> addUserToFriend(@RequestParam("friend") Optional<String> findOpt,
-                                   @RequestParam("id") Long id) {
+                                             @RequestParam("id") Long id) {
         log.info("Añadiendo un friend requested{}id{}", findOpt.isPresent(), id);
 
         return this.userService.addUserToFriendList(findOpt, id);
@@ -124,7 +124,7 @@ public class UserController {
     @ResponseBody
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{myid}/{friendid}")
-    public void deleteUser(@PathVariable("friendid") Long id, @PathVariable("myid") Long myId ) {
-        this.userService.deleteFriend(myId, id  );
+    public void deleteUser(@PathVariable("friendid") Long id, @PathVariable("myid") Long myId) {
+        this.userService.deleteFriend(myId, id);
     }
 }

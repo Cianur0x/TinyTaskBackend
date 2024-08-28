@@ -51,7 +51,7 @@ public class User {
     private Date lastConnection;
 
     @Lob
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private byte[] profilePicture;
 
     // TODO HACER UN ENMUN COMO VALOR POR DEFECTO A UN ESTADO
@@ -100,6 +100,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "sender", orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<FriendRequest> friendRequestsSent = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver", orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<FriendRequest> friendRequestsReceived = new HashSet<>();
 
     public User(String username, String email, String password) {
         this.username = username;

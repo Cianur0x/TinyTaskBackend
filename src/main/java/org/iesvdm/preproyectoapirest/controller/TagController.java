@@ -49,6 +49,18 @@ public class TagController {
         return ResponseEntity.ok(responseAll);
     }
 
+    @GetMapping(value = {"", "/getmap"}, params = {"!search", "!order", "!page", "!size", "!allTags"})
+    public Map<String, Map<Integer, Long>> getMap(@RequestParam("start") String start, @RequestParam("end") String end, @RequestParam("id") Long userId, @RequestParam("tagId") Long tagId) {
+        log.info("Accediendo a las estadísticas de tags");
+        return this.tagService.getTaskTagMap(start, end, userId, tagId);
+    }
+
+    @GetMapping(value = {"", "/getdoughnut"}, params = {"!search", "!order", "!page", "!size", "!allTags", "!getmap"})
+    public Map<Long, Long> getDoughnut(@RequestParam("start") String start, @RequestParam("end") String end, @RequestParam("id") Long userId) {
+        log.info("Accediendo a las tareas ordenadas por tag");
+        return this.tagService.tasksGroupByTagIdAndYear(start, end, userId);
+    }
+
     @PostMapping({"", "/"})
     public TagDTO newTag(@RequestBody Tag tag) {
         return this.tagService.save(tag);

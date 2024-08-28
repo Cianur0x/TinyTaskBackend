@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -240,7 +241,7 @@ public class TaskService {
         return getCounts(results);
     }
 
-    private static Map<String, Map<Integer, Long>> getCounts(List<Object[]> results) {
+    static Map<String, Map<Integer, Long>> getCounts(List<Object[]> results) {
         Map<Integer, Long> totalTasks = new HashMap<>();
         Map<Integer, Long> completedTasks = new HashMap<>();
 
@@ -274,4 +275,33 @@ public class TaskService {
         return taskDTOs;
     }
 
+
+    public Map<String, List<TaskDTO>> getTasksViewedByUser(Long userId) {
+        Map<String, List<TaskDTO>> mapOwners = new HashMap<>();
+        Optional<User> userOptional = this.userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            var result = user.getViewedTasks().stream().collect(Collectors.groupingBy((Task tas) -> tas.getUser().getUsername()));
+
+            if (!result.isEmpty()) {
+
+                // Recorrer el Map original y transformar los objetos
+                for (Map.Entry<String, List<Task>> entry : result.entrySet()) {
+                    String clave = entry.getKey();
+                    List<Task> listaOriginal = entry.getValue();
+
+                    List<TaskDTO> nuevaLista = new ArrayList<>();
+                    for (Task task : listaOriginal) {
+                        TaskDTO taskDTO = this.taskMapper.taskToTaskDTO(task);
+                        nuevaLista.add(taskDTO);
+                    }
+
+                    mapOwners.put(clave, nuevaLista);
+                }
+            }
+        }
+
+        return mapOwners;
+    }
 }
