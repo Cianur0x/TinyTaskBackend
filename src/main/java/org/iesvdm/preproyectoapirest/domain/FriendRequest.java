@@ -1,5 +1,6 @@
 package org.iesvdm.preproyectoapirest.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +16,9 @@ import java.time.LocalDateTime;
 public class FriendRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @ToString.Include
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -29,17 +33,27 @@ public class FriendRequest {
     @Column(name = "status", nullable = false)
     private Status status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "sent_at", nullable = false)
     LocalDateTime sentAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "responded_at", nullable = false)
     LocalDateTime respondedAt; // se actualiza cuando se cambia el estado entre ACCEPTED o DECLINED
 
-    public FriendRequest(final User sender, final User receiver) {
-        this.id = 0L;
+    public FriendRequest(User sender,  User receiver) {
         this.sender = sender;
         this.receiver = receiver;
         this.status = Status.PENDING;
         this.sentAt = LocalDateTime.now();
+        this.respondedAt = LocalDateTime.now();
+    }
+
+    public FriendRequest(User sender,  User receiver,  LocalDateTime sentAt,  Status status) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.status = status;
+        this.sentAt = sentAt;
+        this.respondedAt = LocalDateTime.now();
     }
 }

@@ -35,8 +35,7 @@ public class FriendRequestService {
             User receiver = optReceiver.get();
             FriendRequest friendRequestToSave = new FriendRequest(sender, receiver);
 
-            return //   todo devolver una fr normal, y parsearla luego con sender, receiver y status
-                    this.friendRequestRepository.save(friendRequestToSave);
+            return this.friendRequestRepository.save(friendRequestToSave);
         }
 
         return null;
@@ -47,8 +46,16 @@ public class FriendRequestService {
     }
 
     public FriendRequest replace(Long id, FriendRequest friendRequest) {
-        return this.friendRequestRepository.findById(id).map(p -> (id.equals(friendRequest.getId()) ? this.friendRequestRepository.save(friendRequest) : null))
-                .orElseThrow(() -> new EntityNotFoundException(id, FriendRequest.class));
+
+        Optional<FriendRequest> optFriendRequest = this.friendRequestRepository.findById(id);
+        if (optFriendRequest.isPresent()) {
+            FriendRequest requestToUpdate = optFriendRequest.get();
+            FriendRequest requestToReplace = new FriendRequest(requestToUpdate.getSender(), friendRequest.getReceiver(), requestToUpdate.getSentAt(), friendRequest.getStatus());
+
+            return this.friendRequestRepository.save(requestToReplace);
+        }
+
+        return null;
     }
 
     public void delete(Long id) {

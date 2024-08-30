@@ -27,7 +27,7 @@ public class FriendRequestController {
     }
 
     @PostMapping({"", "/"})
-    public RequestDTO newFRequest(@RequestBody RequestDTO friendRequest) {
+    public FriendRequest newFRequest(@RequestBody RequestDTO friendRequest) {
         return this.friendRequestService.save(friendRequest);
     }
 
