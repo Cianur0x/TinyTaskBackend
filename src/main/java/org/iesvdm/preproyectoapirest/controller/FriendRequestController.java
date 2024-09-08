@@ -5,6 +5,7 @@ import org.iesvdm.preproyectoapirest.domain.FriendRequest;
 import org.iesvdm.preproyectoapirest.dto.RequestDTO;
 import org.iesvdm.preproyectoapirest.service.FriendRequestService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,15 @@ public class FriendRequestController {
         return this.friendRequestService.all();
     }
 
+    @GetMapping(value = {"/requestlist"}, params = {"!search", "!order", "!page", "!size"})
+    public List<RequestDTO> getFriendsList(@RequestParam("id") Long id) {
+        log.info("Accediendo a la lista solicitudes de amigos");
+
+        return this.friendRequestService.friendRequestsSend(id);
+    }
+
     @PostMapping({"", "/"})
-    public FriendRequest newFRequest(@RequestBody RequestDTO friendRequest) {
+    public ResponseEntity<?> newFRequest(@RequestBody RequestDTO friendRequest) {
         return this.friendRequestService.save(friendRequest);
     }
 
@@ -37,7 +45,7 @@ public class FriendRequestController {
     }
 
     @PutMapping("/{id}")
-    public FriendRequest replaceFRequest(@PathVariable("id") Long id, @RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<?> replaceFRequest(@PathVariable("id") Long id, @RequestBody FriendRequest friendRequest) {
         return this.friendRequestService.replace(id, friendRequest);
     }
 

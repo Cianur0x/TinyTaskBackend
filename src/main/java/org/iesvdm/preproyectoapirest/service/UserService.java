@@ -2,14 +2,13 @@ package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.iesvdm.preproyectoapirest.domain.MessageResponse;
-import org.iesvdm.preproyectoapirest.domain.Task;
-import org.iesvdm.preproyectoapirest.domain.User;
+import org.iesvdm.preproyectoapirest.domain.*;
 import org.iesvdm.preproyectoapirest.dto.EditUserDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
 import org.iesvdm.preproyectoapirest.mapper.EditUserMapper;
 import org.iesvdm.preproyectoapirest.mapper.UserMapper;
+import org.iesvdm.preproyectoapirest.repository.FriendRequestRepository;
 import org.iesvdm.preproyectoapirest.repository.TaskRepository;
 import org.iesvdm.preproyectoapirest.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -28,12 +27,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
     private final EditUserMapper editUserMapper;
+    private final FriendRequestRepository friendRequestRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, TaskRepository taskRepository, UserMapper userMapper, EditUserMapper editUserMapper, PasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, TaskRepository taskRepository, FriendRequestRepository friendRequestRepository, UserMapper userMapper, EditUserMapper editUserMapper, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.friendRequestRepository = friendRequestRepository;
         this.editUserMapper = editUserMapper;
         this.userMapper = userMapper;
         this.encoder = encoder;
@@ -177,11 +178,13 @@ public class UserService {
         Optional<User> optionalMyFriend = this.userRepository.findById(friend);
 
         List<Task> tasks = new ArrayList<>();
+        // todo buscar la solicud de amistad que quiero borrr para cambiar el estado a declined para que luego pueda volver a enviar una solicitus y se apruebe heheh
 
         if (optionalMyUser.isPresent() && optionalMyFriend.isPresent()) {
             User myUser = optionalMyUser.get();
             User friendUser = optionalMyFriend.get();
             myUser.getFriendList().remove(friendUser);
+            friendUser.getFriendList().remove(myUser);
 
             friendUser.getViewedTasks().forEach(task -> {
                 if (task.getUser().getId().equals(myId)) {
@@ -192,8 +195,26 @@ public class UserService {
             tasks.forEach(friendUser.getViewedTasks()::remove);
             this.userRepository.save(friendUser);
             this.userRepository.save(myUser);
+            changeRequestStatus(myUser, friendUser);
         } else {
             throw new EntityNotFoundException(myId, User.class);
+        }
+    }
+
+    private void changeRequestStatus(User sender, User receiver) {
+        Optional<FriendRequest> optionalRequest = this.friendRequestRepository.findBySender_IdAndReceiver_Id(sender.getId(), receiver.getId());
+        Optional<FriendRequest> optionalRequestIvn = this.friendRequestRepository.findBySender_IdAndReceiver_Id(receiver.getId(), sender.getId());
+
+        if (optionalRequest.isPresent()) {
+            FriendRequest friendRequest = optionalRequest.get();
+            friendRequest.setStatus(Status.DECLINED);
+            this.friendRequestRepository.save(friendRequest);
+        }
+
+        if (optionalRequestIvn.isPresent()) {
+            FriendRequest friendRequest = optionalRequestIvn.get();
+            friendRequest.setStatus(Status.DECLINED);
+            this.friendRequestRepository.save(friendRequest);
         }
     }
 

@@ -1,6 +1,7 @@
 package org.iesvdm.preproyectoapirest.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -101,9 +102,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sender", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FriendRequest> friendRequestsSent = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FriendRequest> friendRequestsReceived = new HashSet<>();
 
