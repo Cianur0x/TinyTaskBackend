@@ -23,15 +23,22 @@ public class FriendRequestController {
 
     @GetMapping(value = {"", "/"}, params = {"!search", "!order", "!page", "!size"})
     public List<FriendRequest> all() {
-        log.info("Accediendo a todos los temas");
+        log.info("Accediendo a todos las solicitudes");
         return this.friendRequestService.all();
     }
 
-    @GetMapping(value = {"/requestlist"}, params = {"!search", "!order", "!page", "!size"})
-    public List<RequestDTO> getFriendsList(@RequestParam("id") Long id) {
-        log.info("Accediendo a la lista solicitudes de amigos");
+    @GetMapping(value = {"/requestsent"}, params = {"!search", "!order", "!page", "!size"})
+    public List<RequestDTO> getRequestsEnviadas(@RequestParam("id") Long id) {
+        log.info("Accediendo a la lista solicitudes enviadas");
 
-        return this.friendRequestService.friendRequestsSend(id);
+        return this.friendRequestService.requestEnviadas(id);
+    }
+
+    @GetMapping(value = {"/requestreceive"}, params = {"!search", "!order", "!page", "!size"})
+    public List<RequestDTO> getRequestsRecibidas(@RequestParam("id") Long id) {
+        log.info("Accediendo a la lista solicitudes recibidas");
+
+        return this.friendRequestService.requestRecibidas(id);
     }
 
     @PostMapping({"", "/"})
@@ -45,7 +52,7 @@ public class FriendRequestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> replaceFRequest(@PathVariable("id") Long id, @RequestBody FriendRequest friendRequest) {
+    public ResponseEntity<?> replaceFRequest(@PathVariable("id") Long id, @RequestBody RequestDTO friendRequest) {
         return this.friendRequestService.replace(id, friendRequest);
     }
 

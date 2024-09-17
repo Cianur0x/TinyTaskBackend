@@ -2,7 +2,10 @@ package org.iesvdm.preproyectoapirest.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.iesvdm.preproyectoapirest.domain.*;
+import org.iesvdm.preproyectoapirest.domain.FriendRequest;
+import org.iesvdm.preproyectoapirest.domain.MessageResponse;
+import org.iesvdm.preproyectoapirest.domain.Task;
+import org.iesvdm.preproyectoapirest.domain.User;
 import org.iesvdm.preproyectoapirest.dto.EditUserDTO;
 import org.iesvdm.preproyectoapirest.dto.UserDTO;
 import org.iesvdm.preproyectoapirest.exception.EntityNotFoundException;
@@ -207,14 +210,12 @@ public class UserService {
 
         if (optionalRequest.isPresent()) {
             FriendRequest friendRequest = optionalRequest.get();
-            friendRequest.setStatus(Status.DECLINED);
-            this.friendRequestRepository.save(friendRequest);
+            this.friendRequestRepository.delete(friendRequest);
         }
 
         if (optionalRequestIvn.isPresent()) {
             FriendRequest friendRequest = optionalRequestIvn.get();
-            friendRequest.setStatus(Status.DECLINED);
-            this.friendRequestRepository.save(friendRequest);
+            this.friendRequestRepository.delete(friendRequest);
         }
     }
 

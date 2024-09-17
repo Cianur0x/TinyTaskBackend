@@ -33,8 +33,17 @@ public class FriendRequestService {
         return this.friendRequestRepository.findAll();
     }
 
-    public List<RequestDTO> friendRequestsSend(Long userId) {
-        List<FriendRequest> list = this.friendRequestRepository.findAllBySender_IdAndStatus(userId, Status.PENDING);
+    public List<RequestDTO> requestEnviadas(Long userId) {
+        List<FriendRequest> list = this.friendRequestRepository.findAllBySender_Id(userId);
+        return getRequestDTOS(list);
+    }
+
+    public List<RequestDTO> requestRecibidas(Long userId) {
+        List<FriendRequest> list = this.friendRequestRepository.findAllByReceiver_Id(userId);
+        return getRequestDTOS(list);
+    }
+
+    private List<RequestDTO> getRequestDTOS(List<FriendRequest> list) {
         List<RequestDTO> newListDTO = new ArrayList<>();
         if (!list.isEmpty()) {
             for (FriendRequest friendRequest : list) {
@@ -53,7 +62,6 @@ public class FriendRequestService {
         return friendRequest.stream().anyMatch(request -> request.getSender().equals(sender) && request.getReceiver().equals(receiver));
     }
 
-    // todo cambiar la implementacion de amistad,que se añadan en ambos lados
     private boolean checkIfFriendshipExists(User sender, User receiver) {
         Set<User> senderFriendList = sender.getFriendList();
         Set<User> receiverFriendList = receiver.getFriendList();
@@ -65,41 +73,35 @@ public class FriendRequestService {
     }
 
 
-    // todo check if friendship already exists
     public ResponseEntity<?> save(RequestDTO friendRequest) {
-        Optional<User> optSender = this.userRepository.findById(friendRequest.getSender());
+        Optional<User> optSender = this.userRepository.findById(friendRequest.getSenderId());
         Optional<User> optReceiver = this.userRepository.findByUsername(friendRequest.getReceiver());
 
         if (optSender.isPresent() && optReceiver.isPresent()) {
             User sender = optSender.get();
             User receiver = optReceiver.get();
             if (!checkIfFriendshipExists(sender, receiver)) {
-                if (checkIfRequestExists(receiver, sender)) { // si es reciproco osea esta condicion se udatea a accepted
-                    // necesito el id de la friend request para devolverla y luego updatearla
+                if (checkIfRequestExists(receiver, sender) && !checkIfRequestExists(sender, receiver)) {
                     Optional<FriendRequest> friendRequestToUpdate = this.friendRequestRepository.findBySender_IdAndReceiver_Id(receiver.getId(), sender.getId());
-                    // la condicion es valida osea que si que hay uno que coincida paro cuando trato de recuperlo no va hmmm
                     if (friendRequestToUpdate.isPresent()) {
                         FriendRequest request = friendRequestToUpdate.get();
-                        FriendRequest updatedRequest = new FriendRequest(sender, receiver);
 
-                        updatedRequest.setStatus(Status.ACCEPTED);
-                        return this.replace(request.getId(), updatedRequest);
+                        sender.getFriendList().add(receiver);
+                        receiver.getFriendList().add(sender);
+
+                        this.userRepository.save(sender);
+                        this.userRepository.save(receiver);
+                        this.friendRequestRepository.delete(request); // todo cuando se borren de amigos buscar las request y borrarlas xd
+
+                        return ResponseEntity.ok(request);
                     }
-
-                } else if (this.checkIfRequestExists(sender, receiver)) {   // is no existe tengo qu comborbar que no exista una peticion pendiente y si no existe la creo
-                    Optional<FriendRequest> friendRequestToUpdate = this.friendRequestRepository.findBySender_IdAndReceiver_Id(sender.getId(), receiver.getId());
-                    if (friendRequestToUpdate.isPresent()) {
-                        FriendRequest request = friendRequestToUpdate.get();
-                        FriendRequest updatedRequest = new FriendRequest(sender, receiver);
-                        updatedRequest.setStatus(Status.ACCEPTED);
-
-                        return this.replace(request.getId(), updatedRequest);
-                    }
+                } else if (this.checkIfRequestExists(sender, receiver) && !checkIfRequestExists(receiver, sender)) {   // is no existe tengo qu comborbar que no exista una peticion pendiente y si no existe la creo
+                    return ResponseEntity.badRequest().body(new MessageResponse("Friend request already exists!"));
                 } else {
                     FriendRequest friendRequestToSave = new FriendRequest(sender, receiver);
                     this.friendRequestRepository.save(friendRequestToSave);
 
-                    return this.replace(friendRequestToSave.getId(), friendRequestToSave);
+                    return ResponseEntity.ok(new MessageResponse("Friend Request sent"));
                 }
             } else {
                 return ResponseEntity.badRequest().body(new MessageResponse("Friend already exists"));
@@ -113,13 +115,13 @@ public class FriendRequestService {
         return this.friendRequestRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, FriendRequest.class));
     }
 
-    public ResponseEntity<?> replace(Long id, FriendRequest friendRequest) {
+    public ResponseEntity<?> replace(Long id, RequestDTO friendRequest) {
         Optional<FriendRequest> optFriendRequest = this.friendRequestRepository.findById(id);
 
         if (optFriendRequest.isPresent()) {
             FriendRequest requestToUpdate = optFriendRequest.get();
 
-            if (requestToUpdate.getStatus().equals(Status.PENDING) && friendRequest.getStatus().equals(Status.ACCEPTED)) {
+            if (friendRequest.getStatus().equals(Status.ACCEPTED)) {
                 User friend1 = requestToUpdate.getSender();
                 User friend2 = requestToUpdate.getReceiver();
 
@@ -129,20 +131,13 @@ public class FriendRequestService {
                 this.userRepository.save(friend1);
                 this.userRepository.save(friend2);
 
-                requestToUpdate.setStatus(friendRequest.getStatus());
-                this.friendRequestRepository.save(requestToUpdate);
+                this.friendRequestRepository.delete(requestToUpdate);
 
                 return ResponseEntity.ok(requestToUpdate);
-            } else if (friendRequest.getStatus().equals(Status.DECLINED)) { // todo si esta declined y quiere volverse a enviar no podria??????
-                requestToUpdate.setStatus(friendRequest.getStatus());
-                this.friendRequestRepository.save(requestToUpdate);
+            } else if (friendRequest.getStatus().equals(Status.DECLINED)) {
+                this.friendRequestRepository.delete(requestToUpdate);
 
                 return ResponseEntity.ok(new MessageResponse("Friend Request declined"));
-            } else if (requestToUpdate.getStatus().equals(Status.DECLINED)) {
-                requestToUpdate.setStatus(Status.PENDING);
-                this.friendRequestRepository.save(requestToUpdate);
-
-                return ResponseEntity.ok(new MessageResponse("Friend Request pending"));
             } else {
                 return ResponseEntity.badRequest().body(new MessageResponse("ola como he llegado aki"));
             }

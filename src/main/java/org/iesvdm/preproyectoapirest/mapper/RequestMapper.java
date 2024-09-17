@@ -9,9 +9,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface RequestMapper {
 
-    @Mapping(source = "sender.id", target = "sender")
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "sender.id", target = "senderId")
+    @Mapping(source = "sender.username", target = "sender")
     @Mapping(source = "receiver.username", target = "receiver")
-    @Mapping(source = "status", target = "status")
     RequestDTO requestToRequestDTO(FriendRequest user);
 
     FriendRequest requestDTOtoUser(RequestDTO userDTO);
@@ -36,4 +37,5 @@ public interface RequestMapper {
         user.setUsername(receiverUsername); // Assuming you only need to set the username for now
         return user;
     }
+
 }

@@ -10,7 +10,8 @@ import org.iesvdm.preproyectoapirest.domain.Status;
 @NoArgsConstructor
 public class RequestDTO {
     private Long id;
-    private Long sender;
+    private Long senderId;
+    private String sender;
     private String receiver;
     private Status status;
 }
