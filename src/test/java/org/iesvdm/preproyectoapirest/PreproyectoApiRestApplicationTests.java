@@ -42,12 +42,18 @@ class PreproyectoApiRestApplicationTests {
         Set<Role> roleSet2 = new HashSet<>();
         roleSet2.add(role2);
 
+        Theme theme = new Theme(1L);
+        Badge badge = new Badge(1L);
+
         User user1 = User.builder()
                 .username("Carlos")
                 .password(encoder.encode("luffy1"))
                 .email("carlos@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 1, 29))
                 .roles(roleSet)
+                .state(State.BUSY)
+                .theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user1);
 
@@ -57,6 +63,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("maria@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 12, 29))
                 .roles(roleSet2)
+                .state(State.BUSY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user2);
 
@@ -66,6 +74,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("jose@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 9, 29))
                 .roles(roleSet2)
+                .state(State.AWAY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user3);
 
@@ -75,6 +85,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("laura@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 6, 29))
                 .roles(roleSet2)
+                .state(State.AWAY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user4);
 
@@ -84,6 +96,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("andres@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet2)
+                .state(State.AWAY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user5);
 
@@ -93,6 +107,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("isabel@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 4, 29))
                 .roles(roleSet2)
+                .state(State.OFFLINE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user6);
 
@@ -102,6 +118,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("javier@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 3, 29))
                 .roles(roleSet2)
+                .state(State.OFFLINE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user7);
 
@@ -111,6 +129,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("sofia@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 2, 29))
                 .roles(roleSet2)
+                .state(State.OFFLINE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user8);
 
@@ -120,6 +140,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("pedro@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 1, 29))
                 .roles(roleSet2)
+                .state(State.BUSY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user9);
 
@@ -129,6 +151,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("claudia@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 1, 29))
                 .roles(roleSet2)
+                .state(State.BUSY).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user10);
 
@@ -138,6 +162,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("roberto@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet)
+                .state(State.ACTIVE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user11);
 
@@ -147,6 +173,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("ana@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet)
+                .state(State.ACTIVE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user12);
 
@@ -156,6 +184,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("luis@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet)
+                .state(State.ACTIVE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user13);
 
@@ -165,6 +195,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("raquel@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet)
+                .state(State.ACTIVE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user14);
 
@@ -174,6 +206,8 @@ class PreproyectoApiRestApplicationTests {
                 .email("fernando@gmail.com")
                 .lastConnection(new Date(2019 - 1900, 5, 29))
                 .roles(roleSet)
+                .state(State.ACTIVE).theme(theme)
+                .badge(badge)
                 .build();
         userRepository.save(user15);
 

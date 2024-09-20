@@ -53,8 +53,7 @@ public class TaskService {
             return this.taskRepository.findTaskByTag_NameContainingIgnoreCase(findOpt.get(), sort);
         } else {
             log.info("OPCION 2");
-            return sort != null ? this.taskRepository.findAll(sort) :
-                    this.taskRepository.findAll();
+            return sort != null ? this.taskRepository.findAll(sort) : this.taskRepository.findAll();
         }
     }
 
@@ -155,16 +154,14 @@ public class TaskService {
 
         Task currentTask = one(taskID);
         currentTask.getViewers().forEach(user -> {
-                    user.getViewedTasks().remove(currentTask);
-                    this.userRepository.save(user);
-                }
-        );
+            user.getViewedTasks().remove(currentTask);
+            this.userRepository.save(user);
+        });
 
         this.taskRepository.save(currentTask);
 
         viewersAdded.forEach(userDTO -> {
-            User user = this.userRepository.findById(userDTO.getId())
-                    .orElseThrow(() -> new EntityNotFoundException(userDTO.getId(), User.class));
+            User user = this.userRepository.findById(userDTO.getId()).orElseThrow(() -> new EntityNotFoundException(userDTO.getId(), User.class));
 
             user.getViewedTasks().add(currentTask);
             this.userRepository.save(user);
@@ -176,10 +173,9 @@ public class TaskService {
         List<UserDTO> viewers = new ArrayList<>();
 
         currentTask.getViewers().forEach(user -> {
-                    UserDTO userDTO = this.userMapper.userToUserDTO(user);
-                    viewers.add(userDTO);
-                }
-        );
+            UserDTO userDTO = this.userMapper.userToUserDTO(user);
+            viewers.add(userDTO);
+        });
 
         return viewers;
     }
@@ -195,11 +191,11 @@ public class TaskService {
         if (taskOptional.isPresent()) {
             Task taskToReplace = taskOptional.get();
 
-            taskToReplace.getViewers().forEach(user -> { // se cambia la relacion EN USUARIOS
-                user.getViewedTasks().remove(taskToReplace);
-                this.userRepository.save(user);
-                this.taskRepository.save(taskToReplace);
-            });
+//            taskToReplace.getViewers().forEach(user -> { // se cambia la relacion EN USUARIOS
+//                user.getViewedTasks().remove(taskToReplace);
+//                this.userRepository.save(user);
+//                this.taskRepository.save(taskToReplace);
+//            });
 
             Set<User> users = new HashSet<>();
             task.getWatchers().forEach(user -> {
@@ -275,9 +271,8 @@ public class TaskService {
         return taskDTOs;
     }
 
-
-    public Map<String, List<TaskDTO>> getTasksViewedByUser(Long userId) {
-        Map<String, List<TaskDTO>> mapOwners = new HashMap<>();
+    public Map<String, List<Task>> getTasksViewedByUser(Long userId) {
+        Map<String, List<Task>> mapOwners = new HashMap<>();
         Optional<User> userOptional = this.userRepository.findById(userId);
 
         if (userOptional.isPresent()) {
@@ -291,13 +286,7 @@ public class TaskService {
                     String clave = entry.getKey();
                     List<Task> listaOriginal = entry.getValue();
 
-                    List<TaskDTO> nuevaLista = new ArrayList<>();
-                    for (Task task : listaOriginal) {
-                        TaskDTO taskDTO = this.taskMapper.taskToTaskDTO(task);
-                        nuevaLista.add(taskDTO);
-                    }
-
-                    mapOwners.put(clave, nuevaLista);
+                    mapOwners.put(clave, listaOriginal);
                 }
             }
         }

@@ -96,7 +96,7 @@ public class TaskController {
     }
 
     @GetMapping("/viewedtasks/{id}")
-    public Map<String, List<TaskDTO>> getTasksViewed(@PathVariable("id") Long viewer) {
+    public Map<String, List<Task>> getTasksViewed(@PathVariable("id") Long viewer) {
         // TODO solo devolver la tarea con ciertos campos, crear un dto de tarea y de usuario para que no devuelva sus tareas creadas, al pedir una sola tarea
         return this.taskService.getTasksViewedByUser(viewer);
     }
